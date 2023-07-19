@@ -92,8 +92,7 @@ class WelcomePage extends StatelessWidget {
                         left: 80,
                       ),
                       child: Text(
-                        "Ce système intelligent de gestion des déchets utilisant l'Internet des Objets, et connecté à des dispositifs qui affichent l'emplacement des poubelles et leur niveau de déchets.",
-                        //"Cette Application est connectée à un appareil qui affiche l'emplacement et le niveau des déchets dans la poubelle",
+                        "This intelligent waste management system using the Internet of Things, and connected to devices that display the location of bins and their level of waste.", //"Cette Application est connectée à un appareil qui affiche l'emplacement et le niveau des déchets dans la poubelle",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
                           color: const Color.fromARGB(255, 133, 133, 133),
@@ -111,8 +110,7 @@ class WelcomePage extends StatelessWidget {
                         bottom: 30,
                       ),
                       child: Text(
-                        "Ce système intelligent de gestion des déchets utilisant l'Internet des Objets, et connecté à des dispositifs qui affichent l'emplacement des poubelles et leur niveau de déchets.",
-                        //"Cette Application est connectée à un appareil qui affiche l'emplacement et le niveau des déchets dans la poubelle",
+                        "This intelligent waste management system using the Internet of Things, and connected to devices that display the location of bins and their level of waste.", //"Cette Application est connectée à un appareil qui affiche l'emplacement et le niveau des déchets dans la poubelle",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
                           color: const Color.fromARGB(255, 133, 133, 133),
@@ -130,7 +128,7 @@ class WelcomePage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
                         child: Text(
-                          'Commencer',
+                          'Begin',
                           style: GoogleFonts.poppins(
                             textStyle: style,
                             //  fontWeight: FontWeight.bold,

@@ -68,7 +68,7 @@ class _MyORSmapsCitoyenState extends State<MyORSmapsCitoyen> {
         await getBytesFromAsset('images/vide.png', 110);
     await FirebaseFirestore.instance
         .collection("data")
-        .where("pourcentage", isLessThanOrEqualTo: 60)
+        .where("percentage", isLessThanOrEqualTo: 60)
         .snapshots()
         .listen((event) {
       //_markers={};
@@ -83,8 +83,8 @@ class _MyORSmapsCitoyenState extends State<MyORSmapsCitoyen> {
                     LatLng(doc.data()["Latitude"], doc.data()["Longitude"]),
                 infoWindow: InfoWindow(
                   title:
-                      " NomId : ${doc.data()["name"]} \n Etat : ${doc.data()["etat"]}",
-                  snippet: "pourcentage : ${doc.data()["pourcentage"]}",
+                      " NomId : ${doc.data()["name"]} \n State : ${doc.data()["state"]}",
+                  snippet: "percentage : ${doc.data()["percentage"]}",
                 ),
                 icon: BitmapDescriptor.fromBytes(markerIcon)),
           );
@@ -110,7 +110,7 @@ class _MyORSmapsCitoyenState extends State<MyORSmapsCitoyen> {
     newGoogleMapController = controller;
     await FirebaseFirestore.instance
         .collection("data")
-        .where("pourcentage", isGreaterThan: 60)
+        .where("percentage", isGreaterThan: 60)
         .snapshots()
         .listen((event) async {
       //_markers={};
@@ -126,7 +126,7 @@ class _MyORSmapsCitoyenState extends State<MyORSmapsCitoyen> {
                 infoWindow: InfoWindow(
                   title: " Id : ${doc.data()["name"]}",
                   snippet:
-                      "pourcentage : ${doc.data()["pourcentage"]} \n Etat : ${doc.data()["etat"]}",
+                      "percentage : ${doc.data()["percentage"]} \n State : ${doc.data()["state"]}",
                 ),
                 icon: BitmapDescriptor.fromBytes(markerIcon1)),
           );

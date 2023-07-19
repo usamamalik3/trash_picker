@@ -213,7 +213,7 @@ class _MainScreenState extends State<MainScreen> {
 
                       ElevatedButton(
                         child: const Text(
-                          "Refrech",
+                          "Refresh",
                         ),
                         onPressed: () {
                           Navigator.push(

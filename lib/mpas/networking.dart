@@ -19,7 +19,7 @@ class NetworkHelper {
   Stream<QuerySnapshot<Map<String, dynamic>>> getData() {
     return FirebaseFirestore.instance
         .collection("data")
-        .where("pourcentage", isGreaterThan: 60)
+        .where("percentage", isGreaterThan: 60)
         .snapshots();
   }
 }

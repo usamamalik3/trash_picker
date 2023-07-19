@@ -88,7 +88,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   color: Colors.white54,
                 ),
                 title: Text(
-                  "Accueil",
+                  "Welcome",
                   style: TextStyle(color: Colors.white54),
                 ),
               ),
@@ -129,7 +129,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   color: Colors.white54,
                 ),
                 title: Text(
-                  "Se déconnecter",
+                  "Sign out",
                   style: TextStyle(color: Colors.white54),
                 ),
               ),

@@ -21,12 +21,11 @@ void main() async {
     await Firebase.initializeApp(
       options: FirebaseOptions(
           apiKey: "AIzaSyDkYfReC9iSBLx7HqTwrfLcKiBkN1mhc7E",
-  authDomain: "trashpicker-bb2d7.firebaseapp.com",
-  projectId: "trashpicker-bb2d7",
-  storageBucket: "trashpicker-bb2d7.appspot.com",
-  messagingSenderId: "834599004692",
-  appId: "1:834599004692:web:789f0e37fdfe064d28d501"
-  ),
+          authDomain: "trashpicker-bb2d7.firebaseapp.com",
+          projectId: "trashpicker-bb2d7",
+          storageBucket: "trashpicker-bb2d7.appspot.com",
+          messagingSenderId: "834599004692",
+          appId: "1:834599004692:web:789f0e37fdfe064d28d501"),
     );
   } catch (e) {}
   print("fire base initialized");
@@ -45,7 +44,9 @@ class MyApp extends StatelessWidget {
       title: 'SmartGarbages',
       theme: ThemeData(
         primaryColor: kPrimaryColor,
-        scaffoldBackgroundColor: Colors.grey.shade100, colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey).copyWith(secondary: _primaryColor),
+        scaffoldBackgroundColor: Colors.grey.shade100,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)
+            .copyWith(secondary: _primaryColor),
       ),
       home: WelcomePage(),
     );

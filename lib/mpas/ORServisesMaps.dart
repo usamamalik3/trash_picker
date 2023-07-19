@@ -67,7 +67,7 @@ class _ORServisesState extends State<ORServises> {
         await getBytesFromAsset('images/vide.png', 110);
     await FirebaseFirestore.instance
         .collection("data")
-        .where("pourcentage", isLessThanOrEqualTo: 60)
+        .where("percentage", isLessThanOrEqualTo: 60)
         .snapshots()
         .listen((event) {
       //_markers={};
@@ -82,7 +82,7 @@ class _ORServisesState extends State<ORServises> {
                 infoWindow: InfoWindow(
                   title:
                       " Id : ${doc.data()["name"]} \n Etat : ${doc.data()["etat"]}",
-                  snippet: "pourcentage : ${doc.data()["pourcentage"]} ",
+                  snippet: "percentage : ${doc.data()["percentage"]} ",
                 ),
                 icon: BitmapDescriptor.fromBytes(markerIcon)),
           );
@@ -105,7 +105,7 @@ class _ORServisesState extends State<ORServises> {
     newGoogleMapController = controller;
     await FirebaseFirestore.instance
         .collection("data")
-        .where("pourcentage", isGreaterThan: 60)
+        .where("percentage", isGreaterThan: 60)
         .snapshots()
         .listen((event) async {
       //_markers={};
@@ -120,8 +120,8 @@ class _ORServisesState extends State<ORServises> {
                     LatLng(doc.data()["Latitude"], doc.data()["Longitude"]),
                 infoWindow: InfoWindow(
                   title:
-                      " Id : ${doc.data()["name"]} \n Etat : ${doc.data()["etat"]}",
-                  snippet: "pourcentage : ${doc.data()["pourcentage"]} ",
+                      " Id : ${doc.data()["name"]} \n State : ${doc.data()["state"]}",
+                  snippet: "percentage : ${doc.data()["percentage"]} ",
                 ),
                 icon: BitmapDescriptor.fromBytes(markerIcon1)),
           );
@@ -354,7 +354,7 @@ class _ORServisesState extends State<ORServises> {
                     children: [
                       ElevatedButton(
                         child: const Text(
-                          " Actualiser ",
+                          " Refresh ",
                         ),
                         onPressed: () {
                           Navigator.push(
@@ -371,7 +371,7 @@ class _ORServisesState extends State<ORServises> {
                       Spacer(),
                       ElevatedButton(
                         child: const Text(
-                          "  Pannes  ",
+                          "  Breakdowns  ",
                         ),
                         onPressed: () {
                           Navigator.push(context,

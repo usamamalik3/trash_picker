@@ -49,7 +49,7 @@ class Header extends StatelessWidget {
             Row(
               children: [
                 NavItem(
-                  title: 'Accueil',
+                  title: 'Welcome',
                   tapEvent: () {
                     Navigator.pushReplacement(
                         context,
@@ -58,7 +58,7 @@ class Header extends StatelessWidget {
                   },
                 ),
                 NavItem(
-                  title: 'Espace Agent',
+                  title: 'Agent Space',
                   tapEvent: () {
                     Navigator.pushReplacement(
                         context,
@@ -76,7 +76,7 @@ class Header extends StatelessWidget {
                   },
                 ),
                 NavItem(
-                  title: 'à Propos',
+                  title: 'in regards to',
                   tapEvent: () {
                     Navigator.pushReplacement(
                         context,

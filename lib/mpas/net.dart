@@ -14,6 +14,7 @@ import 'networking.dart';
 import 'package:location/location.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
+///changes done
 class ORSServises extends StatefulWidget {
   const ORSServises({Key? key}) : super(key: key);
 
@@ -49,7 +50,7 @@ class _ORSServisesState extends State<ORSServises> {
 
     await FirebaseFirestore.instance
         .collection("data")
-        .where("pourcentage", isLessThanOrEqualTo: 60)
+        .where("percentage", isLessThanOrEqualTo: 60)
         .snapshots()
         .listen((event) {
       //_markers={};
@@ -64,7 +65,7 @@ class _ORSServisesState extends State<ORSServises> {
                     LatLng(doc.data()["Latitude"], doc.data()["Longitude"]),
                 infoWindow: InfoWindow(
                   title: doc.data()["name"],
-                  snippet: "pourcentage : ${doc.data()["pourcentage"]}",
+                  snippet: "percentage: ${doc.data()["percentage"]}",
                 ),
                 icon: BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueGreen)),
@@ -79,7 +80,7 @@ class _ORSServisesState extends State<ORSServises> {
     newGoogleMapController = controller;
     await FirebaseFirestore.instance
         .collection("data")
-        .where("pourcentage", isGreaterThan: 60)
+        .where("percentage", isGreaterThan: 60)
         .snapshots()
         .listen((event) {
       //_markers={};
@@ -94,7 +95,7 @@ class _ORSServisesState extends State<ORSServises> {
                     LatLng(doc.data()["Latitude"], doc.data()["Longitude"]),
                 infoWindow: InfoWindow(
                   title: doc.data()["name"],
-                  snippet: "pourcentage : ${doc.data()["pourcentage"]}",
+                  snippet: "percentage : ${doc.data()["percentage"]}",
                 ),
                 icon: BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueRed)),
@@ -300,11 +301,11 @@ class _ORSServisesState extends State<ORSServises> {
   setMarkers() {
     markers.add(
       Marker(
-        markerId: const MarkerId("camion"),
+        markerId: const MarkerId("truck"),
         position: LatLng(startLat, startLng),
         infoWindow: const InfoWindow(
-          title: "camion",
-          snippet: "camion",
+          title: "truck",
+          snippet: "truck",
         ),
       ),
     );
@@ -554,7 +555,7 @@ class _ORSServisesState extends State<ORSServises> {
 
                       ElevatedButton(
                         child: const Text(
-                          "Refrech",
+                          "Refresh",
                         ),
                         onPressed: () {
                           Navigator.push(

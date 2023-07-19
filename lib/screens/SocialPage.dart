@@ -98,7 +98,7 @@ class _SocialPageState extends State<SocialPage> {
                   color: Colors.black87,
                 ),
                 title: Text(
-                  'Accueil',
+                  'Welcome',
                   style: TextStyle(
                     fontSize: _drawerFontSize,
                     color: Colors.black87,
@@ -154,7 +154,7 @@ class _SocialPageState extends State<SocialPage> {
                   color: Colors.black87,
                 ),
                 title: Text(
-                  'Se déconnecter',
+                  'Sign out',
                   style: TextStyle(
                     fontSize: _drawerFontSize,
                     color: Colors.black87,
@@ -195,7 +195,6 @@ class _SocialPageState extends State<SocialPage> {
                     padding: const EdgeInsets.all(10.0),
                     child: ElevatedButton(
                       onPressed: null,
-                      
                       child: Image.asset('images/citoyen.png'),
                     ),
                   ),
@@ -212,7 +211,7 @@ class _SocialPageState extends State<SocialPage> {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
                         child: Text(
-                          '   Citoyen   ',
+                          '   Citizen   ',
                           style: GoogleFonts.poppins(
                             textStyle: style,
                             //  fontWeight: FontWeight.bold,
@@ -257,7 +256,7 @@ class _SocialPageState extends State<SocialPage> {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
                         child: Text(
-                          'Chauffeur',
+                          'Driver',
                           style: GoogleFonts.poppins(
                             textStyle: style,
                             //  fontWeight: FontWeight.bold,
