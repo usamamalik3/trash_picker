@@ -4,15 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/Dashboard_Admin.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/AjoutUsers/AjouterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/dashboard_Admin.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/AddUsers/add_citizen.dart';
+import 'package:trash_picker/Authentification/Auth_citizen/signUp_Citizen.dart';
 import 'package:trash_picker/mpas/maps/Maps.dart';
 import 'package:trash_picker/screens/SocialPage.dart';
 
-import 'package:trash_picker/screens/Animation.dart';
+import 'package:trash_picker/screens/animation.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
 ////////////////
@@ -21,24 +19,23 @@ import 'package:flutter/services.dart';
 
 import '../../../../Theme/menu_item.dart';
 import '../../../../screens/welcome_page.dart';
-import '../../../Auth_Agent/Login_Agent.dart';
-import 'package:trash_picker/UsersInfo/User.dart';
+import '../../../Auth_Agent/login_Agent.dart';
 
-import '../GererUser.dart';
-import '../Update User/UpdateCitoyen.dart';
+import '../manageUser.dart';
+import '../Update User/updateCitizen.dart';
 
-class ConsulterCitoyen extends StatefulWidget {
-  const ConsulterCitoyen({Key? key}) : super(key: key);
+class ConsultCitizen extends StatefulWidget {
+  const ConsultCitizen({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _ConsulterCitoyenState();
+    return _ConsultCitizenState();
   }
 }
 
 List<Object> _ListUser = [];
 
-class _ConsulterCitoyenState extends State<ConsulterCitoyen> {
+class _ConsultCitizenState extends State<ConsultCitizen> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -74,7 +71,7 @@ class _ConsulterCitoyenState extends State<ConsulterCitoyen> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const GererUsers()));
+                          builder: (context) => const ManageUser()));
                 },
               ),
               const Spacer(),
@@ -95,7 +92,7 @@ class _ConsulterCitoyenState extends State<ConsulterCitoyen> {
           ),
           body: StreamBuilder<QuerySnapshot>(
             stream:
-                FirebaseFirestore.instance.collection('Citoyens').snapshots(),
+                FirebaseFirestore.instance.collection('Citizens').snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshots) {
               if (snapshots.hasError) {
@@ -139,10 +136,10 @@ class _ConsulterCitoyenState extends State<ConsulterCitoyen> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => UpdateCitoyen(
-                                            nom: data['nom'],
+                                      builder: (context) => UpdateCitizen(
+                                            name: data['name'],
                                             id: data['uid'],
-                                            password: data['mot de passe'],
+                                            password: data['password'],
                                             email: data["email"],
                                             // location: data["localisation"],
                                           )));
@@ -156,7 +153,7 @@ class _ConsulterCitoyenState extends State<ConsulterCitoyen> {
                           IconButton(
                             onPressed: () {
                               final collection = FirebaseFirestore.instance
-                                  .collection('Citoyens');
+                                  .collection('Citizens');
                               collection
                                       .doc(document
                                           .id) // <-- Doc ID to be deleted.
@@ -170,7 +167,7 @@ class _ConsulterCitoyenState extends State<ConsulterCitoyen> {
                         ],
                       ),
                       title: Text(
-                        " Nom & Prénom :  ${data['nom']} \n Email :  ${data['email']} \n Mot de passe :  ${data['mot de passe']}   \n Localisation :  ${data['localisation']}",
+                        " name & Préname :  ${data['name']} \n Email :  ${data['email']} \n password :  ${data['password']}   \n Localisation :  ${data['localisation']}",
                         style: const TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.w600,
@@ -207,7 +204,7 @@ class _ConsulterCitoyenState extends State<ConsulterCitoyen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const AjoutCitoyen()));
+                        builder: (context) => const AddCitizen()));
               },
             ),
           ),

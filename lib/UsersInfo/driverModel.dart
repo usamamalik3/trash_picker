@@ -1,19 +1,19 @@
 // ignore_for_file: file_names
-class ChauffeurModel {
+class DriverModel {
   String? uid;
   String? email;
-  String? nom;
+  String? name;
   String? password;
   String? tel;
-  ChauffeurModel({this.uid, this.email, this.nom, this.password, this.tel});
+  DriverModel({this.uid, this.email, this.name, this.password, this.tel});
 
   // receiving data from server
-  factory ChauffeurModel.fromMap(map) {
-    return ChauffeurModel(
+  factory DriverModel.fromMap(map) {
+    return DriverModel(
       uid: map['uid'],
       email: map['email'],
-      nom: map['nom'],
-      password: map['mot de passe'],
+      name: map['name'],
+      password: map['password'],
       tel: map['tel'],
     );
   }
@@ -23,8 +23,8 @@ class ChauffeurModel {
     return {
       'uid': uid,
       'email': email,
-      'nom': nom,
-      'mot de passe': password,
+      'name': name,
+      'password': password,
       'tel': tel
     };
   }

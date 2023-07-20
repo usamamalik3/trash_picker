@@ -4,14 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trash_picker/Authentification/Auth_Admin/Dashboard_Admin.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/AjoutUsers/AjouterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
-import 'package:trash_picker/mpas/maps/Maps.dart';
-import 'package:trash_picker/screens/SocialPage.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/AddUsers/addDriver.dart';
 
-import 'package:trash_picker/screens/Animation.dart';
+import 'package:trash_picker/mpas/maps/Maps.dart';
+import 'package:trash_picker/screens/socialPage.dart';
+
+import 'package:trash_picker/screens/animation.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
 ////////////////
@@ -21,23 +19,22 @@ import 'package:flutter/services.dart';
 import '../../../../Theme/menu_item.dart';
 import '../../../../screens/welcome_page.dart';
 import '../../../Auth_Agent/Login_Agent.dart';
-import 'package:trash_picker/UsersInfo/User.dart';
 
-import '../GererUser.dart';
-import '../Update User/UpdateCitoyen.dart';
+import '../manageUser.dart';
+import '../Update User/updateCitizen.dart';
 
-class ConsulterPoubelle extends StatefulWidget {
-  const ConsulterPoubelle({Key? key}) : super(key: key);
+class ConsultDriver extends StatefulWidget {
+  const ConsultDriver({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _ConsulterPoubelleState();
+    return _ConsultDriverState();
   }
 }
 
 List<Object> _ListUser = [];
 
-class _ConsulterPoubelleState extends State<ConsulterPoubelle> {
+class _ConsultDriverState extends State<ConsultDriver> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -73,7 +70,7 @@ class _ConsulterPoubelleState extends State<ConsulterPoubelle> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ProfileAdmin()));
+                          builder: (context) => const ManageUser()));
                 },
               ),
               const Spacer(),
@@ -93,7 +90,8 @@ class _ConsulterPoubelleState extends State<ConsulterPoubelle> {
             ],
           ),
           body: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('data').snapshots(),
+            stream:
+                FirebaseFirestore.instance.collection('Driver').snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshots) {
               if (snapshots.hasError) {
@@ -116,44 +114,49 @@ class _ConsulterPoubelleState extends State<ConsulterPoubelle> {
 
                     return new ListTile(
                       leading: const Icon(
-                        Icons.restore_from_trash_rounded,
-                        size: 40,
+                        Icons.person,
+                        size: 50,
                       ),
-                      iconColor: Color.fromARGB(255, 11, 114, 0),
+                      iconColor: const Color.fromARGB(255, 0, 0, 0),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           //!update!!!!!
                           IconButton(
-                            // onPressed: () {
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) =>
-                            //               const UpdateCitoyen()));
-                            // },
-
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ConsulterPoubelle()),
-                              );
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ConsultDriver()));
                             },
-
-                            icon: const Icon(Icons.add_location_outlined),
-                            iconSize: 30,
+                            icon: const Icon(Icons.file_upload_outlined),
+                            iconSize: 40,
                             color: const Color.fromARGB(255, 14, 167, 1),
                           ),
                           //!Dellete
+                          IconButton(
+                            onPressed: () async {
+                              final collection = FirebaseFirestore.instance
+                                  .collection('Driver');
+                              collection
+                                      .doc(document
+                                          .id) // <-- Doc ID to be deleted.
+                                      .delete() // <-- Delete
+                                  ;
+                            },
+                            icon: const Icon(Icons.delete),
+                            iconSize: 40,
+                            color: Colors.red,
+                          )
                         ],
                       ),
                       title: Text(
-                        " Nom Poubelle:  ${data['name']} \n Longitude:  ${data['Longitude']} \n Latitude:  ${data['Latitude']} \n Pourcentage:  ${data['pourcentage']} % \n Etat :  ${data['etat']}",
+                        " name & Préname :  ${data['name']} \n Email :  ${data['email']} \n password :  ${data['password']}   \n Téléphone :  ${data['tel']}",
                         style: const TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.w600,
-                            fontFamily: "OoohBaby",
+                            fontFamily: "Roboto",
                             fontStyle: FontStyle.normal,
                             fontSize: 20),
                       ),
@@ -163,6 +166,32 @@ class _ConsulterPoubelleState extends State<ConsulterPoubelle> {
                 ),
               );
             },
+          ),
+        ),
+        Container(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            decoration: ThemeHelper().buttonBoxDecoration(context),
+            child: ElevatedButton(
+              style: ThemeHelper().buttonStyle(),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                child: Text(
+                  " Ajouter un Chauffeur ".toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddDriver()));
+              },
+            ),
           ),
         ),
         const SizedBox(height: 50.0),

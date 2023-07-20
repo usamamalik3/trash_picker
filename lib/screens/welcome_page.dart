@@ -1,8 +1,8 @@
 // ignore_for_file: unused_local_variable, avoid_unnecessary_containers
 
 import 'package:trash_picker/Theme/theme_helper.dart';
-import 'package:trash_picker/screens/Animation.dart';
-import 'package:trash_picker/screens/SocialPage.dart';
+import 'package:trash_picker/screens/animation.dart';
+import 'package:trash_picker/screens/socialPage.dart';
 import 'package:trash_picker/Responsive/responsive.dart';
 ///////////////
 import 'package:flutter/material.dart';
@@ -128,7 +128,7 @@ class WelcomePage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
                         child: Text(
-                          'Begin',
+                          'Start',
                           style: GoogleFonts.poppins(
                             textStyle: style,
                             //  fontWeight: FontWeight.bold,

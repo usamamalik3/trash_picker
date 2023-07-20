@@ -12,7 +12,7 @@
 // //     updateusers({Key? key,
 // //       required this.email,
 // //       required this.location,
-// //       required this.nom,
+// //       required this.name,
 // //       required this.id,
 // //       required this.password,
 // //       required this.numero})
@@ -20,7 +20,7 @@
 
 // // String email;
 // //   String location;
-// //   String nom;
+// //   String name;
 // //   String id;
 // //   String password;
 // //   String numero;
@@ -29,7 +29,7 @@
 
 // //   String? newemail;
 // //   String? newlocation;
-// //   String? newnom;
+// //   String? newname;
 // //   String? newid;
 // //   String? newpassword;
 // //   String? newnumero;
@@ -58,27 +58,27 @@
 //   Widget build(BuildContext context) {
 
 
-// //nom et prénom
+// //name et préname
 //      final NameField = TextFormField(
 
-//     initialValue: widget.nom,
-//     onChanged: (newValue) => widget.newnom = newValue,
+//     initialValue: widget.name,
+//     onChanged: (newValue) => widget.newname = newValue,
 //     obscureText: false,
 
 //     cursorColor: Colors.black,
 //     validator: (value) {
 //           RegExp regex = new RegExp(r'^.{3,}$');
 //           if (value!.isEmpty) {
-//             return ("veuillez entrer votre nom d'utilisateur");
+//             return ("veuillez entrer votre name d'utilisateur");
 //           }
 //           if (!regex.hasMatch(value)) {
-//             return ("Entrez un nom valide (Min. 3 caractères)");
+//             return ("Entrez un name valide (Min. 3 caractères)");
 //           }
 //           return null;
 //         },
 
 //         onSaved: (value) {
-//          widget.newnom = value!;
+//          widget.newname = value!;
 //        },
 
 //     style: TextStyle(color: Colors.black.withOpacity(0.9)),
@@ -87,7 +87,7 @@
 //         Icons.person_outline,
 //         color: Colors.black,
 //       ),
-//       labelText: "Nom et prénom",
+//       labelText: "name et préname",
 //       labelStyle: TextStyle(color: Colors.black.withOpacity(0.9)),
 //       filled: true,
 //       floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -140,7 +140,7 @@
 
 
 
-// //numéro de téléphone
+// //Enter your mobile number
 
 // final NumField = TextFormField(
 
@@ -153,9 +153,9 @@
 //     validator: (value) {
 //         RegExp regex = new RegExp(r'0123456789');
 //         if (value!.isEmpty) {
-//           return "veuillez entrer votre numéro de téléphone";
+//           return "veuillez entrer votre Enter your mobile number";
 //         } else if (value.length < 😎 {
-//           return "entrer un numéro de téléphone valide";
+//           return "entrer un Enter your mobile number valide";
 //         }
 //         return null;
 //       },
@@ -177,7 +177,7 @@
 //           ),
 //           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0.0),
 //         ),
-//       labelText: "Numéro de téléphone",
+//       labelText: "Enter your mobile number",
 //       labelStyle: TextStyle(color: Colors.black.withOpacity(0.9)),
 //       filled: true,
 //       floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -243,10 +243,10 @@
 //     validator: (value) {
 //           RegExp regex = new RegExp(r'^.{6,}$');
 //           if (value!.isEmpty) {
-//             return ("Le mot de passe est requis pour la connexion");
+//             return ("Le password est requis pour la connexion");
 //           }
 //           if (!regex.hasMatch(value)) {
-//             return ("Entrez un mot de passe valide (min. 6 caractères)");
+//             return ("Entrez un password valide (min. 6 caractères)");
 //           }
 //         },
 //         onSaved: (value) {
@@ -266,7 +266,7 @@
 //               color: Colors.black,
 //             ),
 //           ),
-//       labelText: 'Mot de passe',
+//       labelText: 'password',
 //       labelStyle: TextStyle(color: Colors.black.withOpacity(0.9)),
 //       filled: true,
 //       floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -299,8 +299,8 @@
 //                           .update({
 //                             'email':  widget.newemail ?? widget.email ,
 //                             'localisation': widget.newlocation ?? widget.location ,
-//                             'mot de passe': widget.newpassword ?? widget.password,
-//                             'nom': widget.newnom ?? widget.nom ,
+//                             'password': widget.newpassword ?? widget.password,
+//                             'name': widget.newname ?? widget.name ,
 //                             'numero': widget.newnumero ?? widget.numero
                         
                         

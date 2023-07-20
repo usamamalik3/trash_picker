@@ -3,15 +3,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/Dashboard_Admin.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/AjoutUsers/AjouterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
-import 'package:trash_picker/mpas/maps/Maps.dart';
-import 'package:trash_picker/screens/SocialPage.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/dashboard_Admin.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/AddUsers/add_citizen.dart';
 
-import 'package:trash_picker/screens/Animation.dart';
+import 'package:trash_picker/mpas/maps/Maps.dart';
+import 'package:trash_picker/screens/socialPage.dart';
+
+import 'package:trash_picker/screens/animation.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
 ////////////////
@@ -20,24 +18,24 @@ import 'package:flutter/services.dart';
 
 import '../../../../Theme/menu_item.dart';
 import '../../../../screens/welcome_page.dart';
-import '../../../Auth_Agent/Login_Agent.dart';
-import 'package:trash_picker/UsersInfo/User.dart';
+import '../../../Auth_Agent/login_Agent.dart';
 
-import '../GererUser.dart';
-import '../Update User/UpdateCitoyen.dart';
 
-class consulterpanne extends StatefulWidget {
-  const consulterpanne({Key? key}) : super(key: key);
+import '../manageUser.dart';
+import '../Update User/updateCitizen.dart';
+
+class ConsultTrashcan extends StatefulWidget {
+  const ConsultTrashcan({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _consulterpanneState();
+    return _ConsultTrashcanState();
   }
 }
 
 List<Object> _ListUser = [];
 
-class _consulterpanneState extends State<consulterpanne> {
+class _ConsultTrashcanState extends State<ConsultTrashcan> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -93,7 +91,7 @@ class _consulterpanneState extends State<consulterpanne> {
             ],
           ),
           body: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('pannes').snapshots(),
+            stream: FirebaseFirestore.instance.collection('data').snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshots) {
               if (snapshots.hasError) {
@@ -116,7 +114,7 @@ class _consulterpanneState extends State<consulterpanne> {
 
                     return new ListTile(
                       leading: const Icon(
-                        Icons.sync_problem,
+                        Icons.restore_from_trash_rounded,
                         size: 40,
                       ),
                       iconColor: Color.fromARGB(255, 11, 114, 0),
@@ -125,21 +123,31 @@ class _consulterpanneState extends State<consulterpanne> {
                         children: [
                           //!update!!!!!
                           IconButton(
+                            // onPressed: () {
+                            //   Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //           builder: (context) =>
+                            //               const UpdateCitoyen()));
+                            // },
+
                             onPressed: () {
-                              final collection = FirebaseFirestore.instance
-                                  .collection("pannes")
-                                  .doc(document.id)
-                                  .delete();
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ConsultTrashcan()),
+                              );
                             },
-                            icon: const Icon(Icons.verified),
-                            iconSize: 40,
-                            color: Colors.red,
+
+                            icon: const Icon(Icons.add_location_outlined),
+                            iconSize: 30,
+                            color: const Color.fromARGB(255, 14, 167, 1),
                           ),
                           //!Dellete
                         ],
                       ),
                       title: Text(
-                        " nom:  ${data['nom']} \n téléphone:  ${data['tel']} \n panne:  ${data['panne']} \n camion:  ${data['camion']}",
+                        " name Poubelle:  ${data['name']} \n Longitude:  ${data['Longitude']} \n Latitude:  ${data['Latitude']} \n Pourcentage:  ${data['pourcentage']} % \n Etat :  ${data['etat']}",
                         style: const TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.w600,

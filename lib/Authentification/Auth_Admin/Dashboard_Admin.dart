@@ -1,11 +1,8 @@
 // ignore_for_file: unused_import, file_names, deprecated_member_use, unnecessary_new, avoid_print, unused_local_variable
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/consultercamion.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
-import 'package:trash_picker/mpas/maps/Maps.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/ConsultUser/consulttruck.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/manageUser.dart';
 import 'package:trash_picker/screens/SocialPage.dart';
 
 import 'package:trash_picker/screens/Animation.dart';
@@ -20,9 +17,9 @@ import '../../Theme/menu_item.dart';
 import '../../mpas/openstreet.dart';
 import '../../screens/welcome_page.dart';
 import '../Auth_Agent/Login_Agent.dart';
-import 'GererUsers/ConsulterUser/ConsulterPoubelle.dart';
-import 'GererUsers/ConsulterUser/consulterPanne.dart';
-import 'GererUsers/GererUser.dart';
+import 'ManageUsers/ConsultUser/consultTrashcan.dart';
+import 'ManageUsers/ConsultUser/consultBreakdown.dart';
+
 import 'Login_Admin.dart';
 
 class ProfileAdmin extends StatefulWidget {
@@ -154,7 +151,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const GererUsers()));
+                                                const ManageUser()));
                                   },
                                   child: Center(
                                     child: Padding(
@@ -166,7 +163,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                           const SizedBox(height: 10.0),
 
                                           const Text(
-                                            "Gérer Utilisateurs",
+                                            "Manage Users",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -201,7 +198,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const ConsulterPoubelle()));
+                                                const ConsultTrashcan()));
                                   },
                                   child: Center(
                                     child: Padding(
@@ -214,7 +211,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                           ),
                                           const SizedBox(height: 10.0),
                                           const Text(
-                                            "Gérer Poubelles",
+                                            "Manage Bins",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -260,7 +257,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                               width: 100.0),
                                           const SizedBox(height: 12.0),
                                           const Text(
-                                            "Gérer Trajets",
+                                            "Manage Trips",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -295,7 +292,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const consultercamion()));
+                                                const Consulttruck()));
                                   },
                                   child: Center(
                                     child: Padding(
@@ -306,7 +303,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                               width: 140.0),
                                           const SizedBox(height: 20.0),
                                           const Text(
-                                            "Gérer Camions",
+                                            "Manage trucks",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -340,7 +337,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const consulterpanne()));
+                                                const ConsultBreakdown()));
                                   },
                                   child: Center(
                                     child: Padding(
@@ -351,7 +348,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                               width: 90.0),
                                           const SizedBox(height: 20.0),
                                           const Text(
-                                            "Gérer Panne",
+                                            "Manage Outage",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -386,7 +383,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const GererUsers()));
+                                                const ManageUser()));
                                   },
                                   child: Center(
                                     child: Padding(
@@ -397,7 +394,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                               width: 50.0),
                                           const SizedBox(height: 5.0),
                                           const Text(
-                                            "Gérer Utilisateurs",
+                                            "Manage Users",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -441,7 +438,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                           ),
                                           const SizedBox(height: 5.0),
                                           const Text(
-                                            "Gérer Poubelles",
+                                            "Manage Bins",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -483,7 +480,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                               width: 50.0),
                                           const SizedBox(height: 5.0),
                                           const Text(
-                                            "Gérer Trajets",
+                                            "Manage Trips",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -529,7 +526,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                               width: 60.0),
                                           const SizedBox(height: 14.0),
                                           const Text(
-                                            "Gérer Camions",
+                                            "Manage trucks",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,

@@ -6,10 +6,10 @@ import 'package:trash_picker/screens/welcome_page.dart';
 import '../../screens/SocialPage.dart';
 
 class MyDrawer extends StatefulWidget {
-  String? nom;
+  String? name;
   String? email;
 
-  MyDrawer({this.nom, this.email});
+  MyDrawer({this.name, this.email});
 
   @override
   _MyDrawerState createState() => _MyDrawerState();

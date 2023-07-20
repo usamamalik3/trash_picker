@@ -2,8 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
-import 'package:trash_picker/Authentification/ResetPassword.dart';
+import 'package:trash_picker/Authentification/Auth_citizen/signUp_Citizen.dart';
+import 'package:trash_picker/Authentification/resetPassword.dart';
 import 'package:trash_picker/Responsive/responsive.dart';
 import 'package:trash_picker/screens/SocialPage.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
@@ -18,16 +18,16 @@ import '../../mpas/OpenRouteServices.dart';
 import '../../mpas/maps/Maps.dart';
 import '../../screens/welcome_page.dart';
 
-class LoginCitoyen extends StatefulWidget {
-  const LoginCitoyen({Key? key}) : super(key: key);
+class LoginCitizen extends StatefulWidget {
+  const LoginCitizen({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _LoginCitoyenState();
+    return _LoginCitizenState();
   }
 }
 
-class _LoginCitoyenState extends State<LoginCitoyen> {
+class _LoginCitizenState extends State<LoginCitizen> {
   final _formKey = GlobalKey<FormState>();
 
   final double _headerHeight = 210;
@@ -204,7 +204,7 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginCitoyen()));
+                            builder: (context) => const LoginCitizen()));
                   });
                 },
               ),
@@ -228,7 +228,7 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                   child: Column(
                     children: [
                       Text(
-                        'Espace Citoyen',
+                        'Citizen Space',
                         style: GoogleFonts.alef(
                           textStyle: styles,
                           //  fontWeight: FontWeight.bold,
@@ -236,7 +236,7 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                         ),
                       ),
                       const Text(
-                        'Connectez-vous à votre compte',
+                        'Sign into your account',
                         style: TextStyle(
                             color: Color.fromARGB(255, 133, 133, 133)),
                       ),
@@ -261,7 +261,7 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                                       if (val!.isEmpty ||
                                           !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                               .hasMatch(val)) {
-                                        return "Entrer une adresse e-mail valide !";
+                                        return "Enter a valid email address !";
                                       }
                                       return null;
                                     },
@@ -280,11 +280,11 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                                     controller: _passwordController,
                                     obscureText: _isSecret,
                                     decoration: ThemeHelper()
-                                        .textInputDecoration('Mot de passe',
-                                            'Entrer votre mot de passe'),
+                                        .textInputDecoration('password',
+                                            'Confirm your PasswordEnter your password'),
                                     validator: (val) {
                                       if (val!.isEmpty) {
-                                        return "Entrer votre mot de passe";
+                                        return "Confirm your PasswordEnter your password";
                                       }
                                       return null;
                                     },
@@ -310,7 +310,7 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                                       );
                                     },
                                     child: const Text(
-                                      "Mot de passe oublié?",
+                                      "Forgot your password?",
                                       style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 133, 133, 133),
@@ -332,7 +332,7 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                                       if (val!.isEmpty ||
                                           !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                               .hasMatch(val)) {
-                                        return "Entrer une adresse e-mail valide";
+                                        return "Enter a valid email address";
                                       }
                                       return null;
                                     },
@@ -348,11 +348,11 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                                     controller: _passwordController,
                                     obscureText: _isSecret,
                                     decoration: ThemeHelper()
-                                        .textInputDecoration('Mot de passe',
-                                            'Entrer votre mot de passe'),
+                                        .textInputDecoration('Password',
+                                            'Enter your password'),
                                     validator: (val) {
                                       if (val!.isEmpty) {
-                                        return "Entrer votre mot de passe";
+                                        return "Enter your password";
                                       }
                                       return null;
                                     },
@@ -377,7 +377,7 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                                       );
                                     },
                                     child: const Text(
-                                      "Mot de passe oublié?",
+                                      "Forgot your password?",
                                       style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 133, 133, 133),
@@ -395,7 +395,7 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                                     padding: const EdgeInsets.fromLTRB(
                                         40, 10, 40, 10),
                                     child: Text(
-                                      " connection ".toUpperCase(),
+                                      " Login ".toUpperCase(),
                                       style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -406,7 +406,7 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       debugPrint(
-                                          'Toutes les validations sont passées !!');
+                                          'All validations passed!!');
                                     }
                                     signIn(_emailController.text,
                                         _passwordController.text);
@@ -419,16 +419,16 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                                 //child: Text('Don\'t have an account? Create'),
                                 child: Text.rich(TextSpan(children: [
                                   const TextSpan(
-                                      text: "Vous n'avez pas de compte ? "),
+                                      text: "You do not have an account ? "),
                                   TextSpan(
-                                    text: 'Créer',
+                                    text: 'Create',
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const RegistrationCitoyen()));
+                                                    const RegistrationCitizen()));
                                       },
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -454,7 +454,7 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
-                  Fluttertoast.showToast(msg: "Connexion réussie"),
+                  Fluttertoast.showToast(msg: "Successful connection"),
                   // ignore: prefer_const_constructors
                   CircularProgressIndicator(),
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -462,28 +462,28 @@ class _LoginCitoyenState extends State<LoginCitoyen> {
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Votre adresse e-mail semble être malformée.";
+        case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
 
             break;
           case "wrong-password":
-            errorMessage = "Votre mot de passe est erroné.";
+            errorMessage = "Your password is wrong.";
             break;
           case "user-not-found":
-            errorMessage = "L'utilisateur avec cet email n'existe pas.";
+            errorMessage = "The user with this email does not exist.";
             break;
           case "user-disabled":
-            errorMessage = "L'utilisateur avec cet e-mail a été désactivé.";
+            errorMessage = "The user with this email has been deactivated.";
             break;
           case "too-many-requests":
-            errorMessage = "Trop de demandes";
+            errorMessage = "too many requests";
             break;
           case "operation-not-allowed":
             errorMessage =
-                "La connexion avec un e-mail et un mot de passe n'est pas activée.";
+                "Login with email and password is not enabled.";
             break;
           default:
-            errorMessage = "Une erreur indéfinie s'est produite.";
+            errorMessage = "An undefined error has occurred.";
         }
         Fluttertoast.showToast(msg: errorMessage!);
         print(error.code);

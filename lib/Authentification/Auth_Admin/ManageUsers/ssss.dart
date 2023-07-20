@@ -4,14 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:trash_picker/screens/welcome_page.dart';
 
-class GererUserss extends StatefulWidget {
-  GererUserss({Key? key}) : super(key: key);
+class ManageUsers extends StatefulWidget {
+  ManageUsers({Key? key}) : super(key: key);
 
   @override
-  State<GererUserss> createState() => _GererUserssState();
+  State<ManageUsers> createState() => _ManageUsersState();
 }
 
-class _GererUserssState extends State<GererUserss> {
+class _ManageUsersState extends State<ManageUsers> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -32,7 +32,7 @@ class _GererUserssState extends State<GererUserss> {
         ),
         backgroundColor: Colors.transparent,
         body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('Citoyens').snapshots(),
+          stream: FirebaseFirestore.instance.collection('Citizens').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
@@ -57,7 +57,7 @@ class _GererUserssState extends State<GererUserss> {
                       IconButton(
                         onPressed: () {
                           final collection =
-                              FirebaseFirestore.instance.collection('Citoyens');
+                              FirebaseFirestore.instance.collection('Citizens');
                           var uid;
                           collection
                                   .doc(document.id) // <-- Doc ID to be deleted.
@@ -69,7 +69,7 @@ class _GererUserssState extends State<GererUserss> {
                       )
                     ],
                   ),
-                  title: Text(data['nom'],
+                  title: Text(data['name'],
                       style: const TextStyle(
                           color: Color(0xffffffff),
                           fontWeight: FontWeight.w500,

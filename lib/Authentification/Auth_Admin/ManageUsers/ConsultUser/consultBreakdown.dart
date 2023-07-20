@@ -3,15 +3,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/Dashboard_Admin.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/AjoutUsers/AjouterChauffeur.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
-import 'package:trash_picker/mpas/maps/Maps.dart';
-import 'package:trash_picker/screens/SocialPage.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/dashboard_Admin.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/AddUsers/add_citizen.dart';
 
-import 'package:trash_picker/screens/Animation.dart';
+import 'package:trash_picker/mpas/maps/Maps.dart';
+import 'package:trash_picker/screens/socialPage.dart';
+
+import 'package:trash_picker/screens/animation.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
 ////////////////
@@ -20,24 +18,24 @@ import 'package:flutter/services.dart';
 
 import '../../../../Theme/menu_item.dart';
 import '../../../../screens/welcome_page.dart';
-import '../../../Auth_Agent/Login_Agent.dart';
-import 'package:trash_picker/UsersInfo/User.dart';
+import '../../../Auth_Agent/login_Agent.dart';
 
-import '../GererUser.dart';
-import '../Update User/UpdateCitoyen.dart';
 
-class ConsulterChauffeurs extends StatefulWidget {
-  const ConsulterChauffeurs({Key? key}) : super(key: key);
+import '../manageUser.dart';
+import '../Update User/updateCitizen.dart';
+
+class ConsultBreakdown extends StatefulWidget {
+  const ConsultBreakdown({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _ConsulterChauffeursState();
+    return _ConsultBreakdownState();
   }
 }
 
 List<Object> _ListUser = [];
 
-class _ConsulterChauffeursState extends State<ConsulterChauffeurs> {
+class _ConsultBreakdownState extends State<ConsultBreakdown> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -73,7 +71,7 @@ class _ConsulterChauffeursState extends State<ConsulterChauffeurs> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const GererUsers()));
+                          builder: (context) => const ProfileAdmin()));
                 },
               ),
               const Spacer(),
@@ -93,8 +91,7 @@ class _ConsulterChauffeursState extends State<ConsulterChauffeurs> {
             ],
           ),
           body: StreamBuilder<QuerySnapshot>(
-            stream:
-                FirebaseFirestore.instance.collection('Chauffeurs').snapshots(),
+            stream: FirebaseFirestore.instance.collection('pannes').snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshots) {
               if (snapshots.hasError) {
@@ -117,49 +114,34 @@ class _ConsulterChauffeursState extends State<ConsulterChauffeurs> {
 
                     return new ListTile(
                       leading: const Icon(
-                        Icons.person,
-                        size: 50,
+                        Icons.sync_problem,
+                        size: 40,
                       ),
-                      iconColor: const Color.fromARGB(255, 0, 0, 0),
+                      iconColor: Color.fromARGB(255, 11, 114, 0),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           //!update!!!!!
                           IconButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ConsulterChauffeurs()));
-                            },
-                            icon: const Icon(Icons.file_upload_outlined),
-                            iconSize: 40,
-                            color: const Color.fromARGB(255, 14, 167, 1),
-                          ),
-                          //!Dellete
-                          IconButton(
-                            onPressed: () async {
                               final collection = FirebaseFirestore.instance
-                                  .collection('Chauffeurs');
-                              collection
-                                      .doc(document
-                                          .id) // <-- Doc ID to be deleted.
-                                      .delete() // <-- Delete
-                                  ;
+                                  .collection("pannes")
+                                  .doc(document.id)
+                                  .delete();
                             },
-                            icon: const Icon(Icons.delete),
+                            icon: const Icon(Icons.verified),
                             iconSize: 40,
                             color: Colors.red,
-                          )
+                          ),
+                          //!Dellete
                         ],
                       ),
                       title: Text(
-                        " Nom & Prénom :  ${data['nom']} \n Email :  ${data['email']} \n Mot de passe :  ${data['mot de passe']}   \n Téléphone :  ${data['tel']}",
+                        " name:  ${data['name']} \n téléphone:  ${data['tel']} \n panne:  ${data['panne']} \n camion:  ${data['camion']}",
                         style: const TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.w600,
-                            fontFamily: "Roboto",
+                            fontFamily: "OoohBaby",
                             fontStyle: FontStyle.normal,
                             fontSize: 20),
                       ),
@@ -169,32 +151,6 @@ class _ConsulterChauffeursState extends State<ConsulterChauffeurs> {
                 ),
               );
             },
-          ),
-        ),
-        Container(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            decoration: ThemeHelper().buttonBoxDecoration(context),
-            child: ElevatedButton(
-              style: ThemeHelper().buttonStyle(),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-                child: Text(
-                  " Ajouter un Chauffeur ".toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AjoutChauffeurs()));
-              },
-            ),
           ),
         ),
         const SizedBox(height: 50.0),

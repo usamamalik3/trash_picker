@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:trash_picker/UsersInfo/user_model.dart';
 
-import '../../UsersInfo/User.dart';
+
 
 final FirebaseAuth fAuth = FirebaseAuth.instance;
 User? currentFirebaseUser;

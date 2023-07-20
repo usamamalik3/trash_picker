@@ -1,13 +1,12 @@
 // ignore_for_file: unused_import, file_names, deprecated_member_use, unnecessary_new, avoid_print, unused_local_variable
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
+
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/ConsultUser/conultciztizen.dart';
 import 'package:trash_picker/mpas/maps/Maps.dart';
 import 'package:trash_picker/screens/SocialPage.dart';
 
-import 'package:trash_picker/screens/Animation.dart';
+import 'package:trash_picker/screens/animation.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
 ////////////////
@@ -18,19 +17,19 @@ import '../../../Responsive/responsive.dart';
 import '../../../Theme/menu_item.dart';
 import '../../../screens/welcome_page.dart';
 import '../Dashboard_Admin.dart';
-import 'ConsulterUser/ConsulterAgent.dart';
-import 'ConsulterUser/ConsulterChauffeur.dart';
+import 'ConsultUser/consultAgent.dart';
+import 'ConsultUser/consultDriver.dart';
 
-class GererUsers extends StatefulWidget {
-  const GererUsers({Key? key}) : super(key: key);
+class ManageUser extends StatefulWidget {
+  const ManageUser({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _GererUsersState();
+    return _ManageUserState();
   }
 }
 
-class _GererUsersState extends State<GererUsers> {
+class _ManageUserState extends State<ManageUser> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -71,7 +70,7 @@ class _GererUsersState extends State<GererUsers> {
           Row(
             children: [
               NavItem(
-                title: 'Espace Admin',
+                title: 'Admin area',
                 tapEvent: () {
                   Navigator.pushReplacement(
                       context,
@@ -152,7 +151,7 @@ class _GererUsersState extends State<GererUsers> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const ConsulterCitoyen()));
+                                                const ConsultCitizen()));
                                   },
                                   child: Center(
                                     child: Padding(
@@ -164,7 +163,7 @@ class _GererUsersState extends State<GererUsers> {
                                           const SizedBox(height: 20.0),
 
                                           const Text(
-                                            "Gérer Citoyens",
+                                            "Manage Citizens",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -195,7 +194,7 @@ class _GererUsersState extends State<GererUsers> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const ConsulterChauffeurs()));
+                                                const ConsultDriver()));
                                   },
                                   child: Center(
                                     child: Padding(
@@ -208,7 +207,7 @@ class _GererUsersState extends State<GererUsers> {
                                           ),
                                           const SizedBox(height: 10.0),
                                           const Text(
-                                            "Gérer Chauffeurs",
+                                            "Manage Drivers",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -239,7 +238,7 @@ class _GererUsersState extends State<GererUsers> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const ConsulterAgent()));
+                                                const ConsultAgent()));
                                   },
                                   child: Center(
                                     child: Padding(
@@ -250,7 +249,7 @@ class _GererUsersState extends State<GererUsers> {
                                               width: 105.0),
                                           const SizedBox(height: 21.0),
                                           const Text(
-                                            "Gérer Agents",
+                                            "Manage Agents",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -284,7 +283,7 @@ class _GererUsersState extends State<GererUsers> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ConsulterCitoyen()));
+                                                  const ConsultCitizen()));
                                     },
                                     child: Center(
                                       child: Padding(
@@ -295,7 +294,7 @@ class _GererUsersState extends State<GererUsers> {
                                                 width: 70.0),
                                             const SizedBox(height: 18.0),
                                             const Text(
-                                              "Gérer Citoyens",
+                                              "Manage Citizens",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
@@ -328,7 +327,7 @@ class _GererUsersState extends State<GererUsers> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ConsulterChauffeurs()));
+                                                  const ConsultDriver()));
                                     },
                                     child: Center(
                                       child: Padding(
@@ -341,7 +340,7 @@ class _GererUsersState extends State<GererUsers> {
                                             ),
                                             const SizedBox(height: 5.0),
                                             const Text(
-                                              "Gérer Chauffeurs",
+                                              "Manage Drivers",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
@@ -374,7 +373,7 @@ class _GererUsersState extends State<GererUsers> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ConsulterAgent()));
+                                                  const ConsultAgent()));
                                     },
                                     child: Center(
                                       child: Padding(
@@ -385,7 +384,7 @@ class _GererUsersState extends State<GererUsers> {
                                                 width: 70.0),
                                             const SizedBox(height: 15.0),
                                             const Text(
-                                              "Gérer Agents",
+                                              "Manage Agents",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,

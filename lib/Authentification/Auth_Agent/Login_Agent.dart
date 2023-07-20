@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:trash_picker/Authentification/Auth_Agent/Dashboard_Agent.dart';
+import 'package:trash_picker/Authentification/Auth_Agent/dashboard_Agent.dart';
 import 'package:trash_picker/Authentification/Auth_Agent/SignUp_Agent.dart';
 import 'package:trash_picker/Responsive/responsive.dart';
 import 'package:trash_picker/Theme/menu_item.dart';
@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Auth_Admin/Login_Admin.dart';
-import '../ResetPassword.dart';
+import '../resetPassword.dart';
 
 class LoginAgent extends StatefulWidget {
   const LoginAgent({Key? key}) : super(key: key);
@@ -80,7 +80,7 @@ class _LoginAgentState extends State<LoginAgent> {
           Row(
             children: [
               NavItem(
-                title: 'Espace Administrateur',
+                title: 'Admin areaistrateur',
                 tapEvent: () {
                   Navigator.pushReplacement(
                       context,
@@ -142,7 +142,7 @@ class _LoginAgentState extends State<LoginAgent> {
                                       if (val!.isEmpty ||
                                           !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                               .hasMatch(val)) {
-                                        return "Entrer une adresse e-mail valide !";
+                                        return "Enter a valid email address !";
                                       }
                                       return null;
                                     },
@@ -162,11 +162,11 @@ class _LoginAgentState extends State<LoginAgent> {
                                     autocorrect: false,
                                     controller: _passwordController,
                                     decoration: ThemeHelper()
-                                        .textInputDecoration('Mot de passe',
-                                            'Entrer votre mot de passe'),
+                                        .textInputDecoration('password',
+                                            'Confirm your PasswordEnter your password'),
                                     validator: (val) {
                                       if (val!.isEmpty) {
-                                        return "Entrer votre mot de passe";
+                                        return "Confirm your PasswordEnter your password";
                                       }
                                       return null;
                                     },
@@ -192,7 +192,7 @@ class _LoginAgentState extends State<LoginAgent> {
                                         );
                                       },
                                       child: const Text(
-                                        "Mot de passe oublié?",
+                                        "password oublié?",
                                         style: TextStyle(
                                           color: Color.fromARGB(
                                               255, 133, 133, 133),
@@ -215,7 +215,7 @@ class _LoginAgentState extends State<LoginAgent> {
                                       if (val!.isEmpty ||
                                           !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                               .hasMatch(val)) {
-                                        return "Entrer une adresse e-mail valide";
+                                        return "Enter a valid email address";
                                       }
                                       return null;
                                     },
@@ -230,11 +230,11 @@ class _LoginAgentState extends State<LoginAgent> {
                                   child: TextFormField(
                                     controller: _passwordController,
                                     decoration: ThemeHelper()
-                                        .textInputDecoration('Mot de passe',
-                                            'Entrer votre mot de passe'),
+                                        .textInputDecoration('password',
+                                            'Confirm your PasswordEnter your password'),
                                     validator: (val) {
                                       if (val!.isEmpty) {
-                                        return "Entrer votre mot de passe";
+                                        return "Confirm your PasswordEnter your password";
                                       }
                                       return null;
                                     },
@@ -259,7 +259,7 @@ class _LoginAgentState extends State<LoginAgent> {
                                       );
                                     },
                                     child: const Text(
-                                      "Mot de passe oublié?",
+                                      "password oublié?",
                                       style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 133, 133, 133),
@@ -335,34 +335,34 @@ class _LoginAgentState extends State<LoginAgent> {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
-                  Fluttertoast.showToast(msg: "Connexion réussie"),
+                  Fluttertoast.showToast(msg: "Successful connection"),
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const ProfileAgent())),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Votre adresse e-mail semble être malformée.";
+         case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
 
             break;
           case "wrong-password":
-            errorMessage = "Votre mot de passe est erroné.";
+            errorMessage = "Your password is wrong.";
             break;
           case "user-not-found":
-            errorMessage = "L'utilisateur avec cet email n'existe pas.";
+            errorMessage = "The user with this email does not exist.";
             break;
           case "user-disabled":
-            errorMessage = "L'utilisateur avec cet e-mail a été désactivé.";
+            errorMessage = "The user with this email has been deactivated.";
             break;
           case "too-many-requests":
-            errorMessage = "Trop de demandes";
+            errorMessage = "too many requests";
             break;
           case "operation-not-allowed":
             errorMessage =
-                "La connexion avec un e-mail et un mot de passe n'est pas activée.";
+                "Login with email and password is not enabled.";
             break;
           default:
-            errorMessage = "Une erreur indéfinie s'est produite.";
+            errorMessage = "An undefined error has occurred.";
         }
         Fluttertoast.showToast(msg: errorMessage!);
         print(error.code);

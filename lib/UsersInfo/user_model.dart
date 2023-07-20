@@ -2,18 +2,18 @@
 class UserModel {
   String? uid;
   String? email;
-  String? nom;
+  String? name;
   String? password;
   String? localisation;
-  UserModel({this.uid, this.email, this.nom, this.password, this.localisation});
+  UserModel({this.uid, this.email, this.name, this.password, this.localisation});
 
   // receiving data from server
   factory UserModel.fromMap(map) {
     return UserModel(
       uid: map['uid'],
       email: map['email'],
-      nom: map['nom'],
-      password: map['mot de passe'],
+      name: map['name'],
+      password: map['password'],
       localisation: map['localisation'],
     );
   }
@@ -22,8 +22,8 @@ class UserModel {
     return {
       'uid': uid,
       'email': email,
-      'nom': nom,
-      'mot de passe': password,
+      'name': name,
+      'password': password,
       'localisation': localisation
     };
   }

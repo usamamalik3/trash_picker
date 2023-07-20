@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:trash_picker/Authentification/Auth_chauffeur/SignUp_Chauffeur.dart';
+import 'package:trash_picker/Authentification/auth_driver/signUp_driver.dart';
 import 'package:trash_picker/Responsive/responsive.dart';
 ////////////
 import 'package:trash_picker/Theme/header_widget.dart';
@@ -14,20 +14,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../mpas/ORServisesMaps.dart';
+import '../../mpas/oRServisesMaps.dart';
 import '../../screens/welcome_page.dart';
-import '../ResetPassword.dart';
+import '../resetPassword.dart';
 
-class LoginChauffeur extends StatefulWidget {
-  const LoginChauffeur({Key? key}) : super(key: key);
+class LoginDriver extends StatefulWidget {
+  const LoginDriver({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _LoginChauffeurState();
+    return _LoginDriverState();
   }
 }
 
-class _LoginChauffeurState extends State<LoginChauffeur> {
+class _LoginDriverState extends State<LoginDriver> {
   final _formKey = GlobalKey<FormState>();
   double _headerHeight = 210;
 
@@ -197,7 +197,7 @@ class _LoginChauffeurState extends State<LoginChauffeur> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginChauffeur()));
+                            builder: (context) => const LoginDriver()));
                   });
                 },
               ),
@@ -255,7 +255,7 @@ class _LoginChauffeurState extends State<LoginChauffeur> {
                                       if (val!.isEmpty ||
                                           !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                               .hasMatch(val)) {
-                                        return "Entrer une adresse e-mail valide !";
+                                        return "Enter a valid email address !";
                                       }
                                       return null;
                                     },
@@ -275,11 +275,11 @@ class _LoginChauffeurState extends State<LoginChauffeur> {
                                     autocorrect: false,
                                     controller: _passwordController,
                                     decoration: ThemeHelper()
-                                        .textInputDecoration('Mot de passe',
-                                            'Entrer votre mot de passe'),
+                                        .textInputDecoration('password',
+                                            'Confirm your PasswordEnter your password'),
                                     validator: (val) {
                                       if (val!.isEmpty) {
-                                        return "Entrer votre mot de passe";
+                                        return "Confirm your PasswordEnter your password";
                                       }
                                       return null;
                                     },
@@ -305,7 +305,7 @@ class _LoginChauffeurState extends State<LoginChauffeur> {
                                       );
                                     },
                                     child: const Text(
-                                      "Mot de passe oublié?",
+                                      "password oublié?",
                                       style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 133, 133, 133),
@@ -328,7 +328,7 @@ class _LoginChauffeurState extends State<LoginChauffeur> {
                                       if (val!.isEmpty ||
                                           !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                               .hasMatch(val)) {
-                                        return "Entrer une adresse e-mail valide";
+                                        return "Enter a valid email address";
                                       }
                                       return null;
                                     },
@@ -346,11 +346,11 @@ class _LoginChauffeurState extends State<LoginChauffeur> {
                                     autocorrect: false,
                                     controller: _passwordController,
                                     decoration: ThemeHelper()
-                                        .textInputDecoration('Mot de passe',
-                                            'Entrer votre Mot de passe'),
+                                        .textInputDecoration('password',
+                                            'Confirm your PasswordEnter your password'),
                                     validator: (val) {
                                       if (val!.isEmpty) {
-                                        return "Entrer votre Mot de passe";
+                                        return "Confirm your PasswordEnter your password";
                                       }
                                       return null;
                                     },
@@ -375,7 +375,7 @@ class _LoginChauffeurState extends State<LoginChauffeur> {
                                       );
                                     },
                                     child: const Text(
-                                      "Mot de passe oublié?",
+                                      "password oublié?",
                                       style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 133, 133, 133),
@@ -426,7 +426,7 @@ class _LoginChauffeurState extends State<LoginChauffeur> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const RegistrationChauffeur()));
+                                                    const RegistrationDriver()));
                                       },
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -451,34 +451,34 @@ class _LoginChauffeurState extends State<LoginChauffeur> {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
-                  Fluttertoast.showToast(msg: "Connexion réussie"),
+                  Fluttertoast.showToast(msg: "Successful connection"),
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const ORServises())),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Votre adresse e-mail semble être malformée.";
+         case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
 
             break;
           case "wrong-password":
-            errorMessage = "Votre mot de passe est erroné.";
+            errorMessage = "Your password is wrong.";
             break;
           case "user-not-found":
-            errorMessage = "L'utilisateur avec cet email n'existe pas.";
+            errorMessage = "The user with this email does not exist.";
             break;
           case "user-disabled":
-            errorMessage = "L'utilisateur avec cet e-mail a été désactivé.";
+            errorMessage = "The user with this email has been deactivated.";
             break;
           case "too-many-requests":
-            errorMessage = "Trop de demandes";
+            errorMessage = "too many requests";
             break;
           case "operation-not-allowed":
             errorMessage =
-                "La connexion avec un e-mail et un mot de passe n'est pas activée.";
+                "Login with email and password is not enabled.";
             break;
           default:
-            errorMessage = "Une erreur indéfinie s'est produite.";
+            errorMessage = "An undefined error has occurred.";
         }
         Fluttertoast.showToast(msg: errorMessage!);
         print(error.code);

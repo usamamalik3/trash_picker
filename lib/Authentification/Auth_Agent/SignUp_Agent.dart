@@ -14,7 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../Responsive/responsive.dart';
 import '../../UsersInfo/AgentModel.dart';
-import '../Auth_Admin/Login_Admin.dart';
+import '../Auth_Admin/login_Admin.dart';
 
 class RegistrationAgent extends StatefulWidget {
   const RegistrationAgent({Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
   String? dropdownValue;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nomController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _telController = TextEditingController();
 //! firebase!!!!!!!!
   @override
@@ -81,7 +81,7 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
           Row(
             children: [
               NavItem(
-                title: 'Espace Administrateur',
+                title: 'Admin areaistrateur',
                 tapEvent: () {
                   Navigator.pushReplacement(
                       context,
@@ -166,25 +166,25 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
                         ),
 
                         ///! istelephone !!!!!!
-                        //!nom!!!!!!!
+                        //!name!!!!!!!
                         if (!isDesktop(context))
                           Container(
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Nom et Prénom", "Entrer votre Nom"),
+                                  "name et Préname", "Entrer votre name"),
                               keyboardType: TextInputType.name,
-                              controller: _nomController,
+                              controller: _nameController,
                               validator: (val) {
                                 RegExp regex = RegExp(r'^.{3,}$');
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Nom et Prénom !";
+                                  return "Enter your First and Last Name !";
                                 } else if (!regex.hasMatch(val)) {
-                                  return "Entrez un nom valide (Min. 3 caractères)!";
+                                  return "Entrez un name valide (Min. 3 caractères)!";
                                 }
                                 return null;
                               },
                               onSaved: (val) {
-                                _nomController.text = val!;
+                                _nameController.text = val!;
                               },
                             ),
                             decoration:
@@ -196,14 +196,14 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
                           Container(
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Adresse e-mail", "Entrez votre e-mail"),
+                                  "E-mail address", "Enter your e-mail"),
                               keyboardType: TextInputType.emailAddress,
                               controller: _emailController,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                         .hasMatch(val)) {
-                                  return "Entrer une adresse e-mail valide !";
+                                  return "Enter a valid email address !";
                                 }
                                 return null;
                               },
@@ -224,13 +224,13 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
                               controller: _passwordController,
                               //controller: _pass,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Mot de passe", "Entrer votre mot de passe"),
+                                  "Confirm your PasswordEnter your password"),
                               validator: (val) {
                                 RegExp regex = RegExp(r'^.{6,}$');
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Mot de passe !";
+                                  return "Confirm your PasswordEnter your password !";
                                 } else if (!regex.hasMatch(val)) {
-                                  return "Entrez Mot de passe valide (Min. 6 caractères)!";
+                                  return "Entrez password valide (Min. 6 caractères)!";
                                 }
                                 return null;
                               },
@@ -249,14 +249,14 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
                               obscureText: true,
                               controller: _confirmPass,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Confirmer votre Mot de passe",
-                                  "Confirmer votre Mot de passe"),
+                                  "Confirm your Password",
+                                  "Confirm your Password"),
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return "Récrire votre mot de passe !";
+                                  return "Récrire votre password !";
                                 }
                                 if (val != _passwordController.text) {
-                                  return "Le mot de passe ne correspond pas !";
+                                  return "Le password ne correspond pas !";
                                 }
                                 return null;
                               },
@@ -271,15 +271,15 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
                             child: TextFormField(
                               controller: _telController,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Numéro de téléphone",
-                                  "Entrez votre numéro de portable"),
+                                  "Enter your mobile number",
+                                  "Enter your mobile number"),
                               keyboardType: TextInputType.phone,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                  return "Entrez un numéro de téléphone valide";
+                                  return "Enter a valid phone number";
                                 } else if (val.length != 8) {
-                                  return "Entrez un numéro de téléphone valide (8 chiffres)!";
+                                  return "Enter a valid phone number (8 chiffres)!";
                                 }
                                 return null;
                               },
@@ -293,28 +293,28 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
 
                         ///!  is telephone:!!!!!!
                         ////////////////////////!  isDesktop!!!!!!!!
-                        ///!nom!!!!!!!
+                        ///!name!!!!!!!
                         if (isDesktop(context))
                           Container(
                             margin:
                                 EdgeInsets.only(left: w / 3.8, right: w / 3.8),
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Nom et Prénom", "Entrez Nom"),
+                                  "Last name and First name", "Enter Last name"),
                               keyboardType: TextInputType.name,
-                              controller: _nomController,
+                              controller: _nameController,
                               validator: (val) {
                                 RegExp regex = RegExp(r'^.{3,}$');
 
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Nom et Prénom !";
+                                  return "Enter your First and Last Name !";
                                 } else if (!regex.hasMatch(val)) {
-                                  return "Entrez un nom valide (Min. 3 caractères)!";
+                                  return "Entrez un name valide (Min. 3 caractères)!";
                                 }
                                 return null;
                               },
                               onSaved: (val) {
-                                _nomController.text = val!;
+                                _nameController.text = val!;
                               },
                             ),
                             decoration:
@@ -329,14 +329,14 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
                                 EdgeInsets.only(left: w / 3.8, right: w / 3.8),
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Adresse e-mail", "Entrez votre e-mail"),
+                                  "E-mail address", "Enter your e-mail"),
                               keyboardType: TextInputType.emailAddress,
                               controller: _emailController,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                         .hasMatch(val)) {
-                                  return "Entrer une adresse e-mail valide !";
+                                  return "Enter a valid email address !";
                                 }
                                 return null;
                               },
@@ -359,13 +359,13 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
                               controller: _passwordController,
                               //controller: _pass,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Mot de passe", "Entrer votre mot de passe"),
+                                  "Confirm your PasswordEnter your password"),
                               validator: (val) {
                                 RegExp regex = RegExp(r'^.{6,}$');
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Mot de passe !";
+                                  return "Confirm your PasswordEnter your password !";
                                 } else if (!regex.hasMatch(val)) {
-                                  return "Entrez Mot de passe valide (Min. 6 caractères)!";
+                                  return "Entrez password valide (Min. 6 caractères)!";
                                 }
                                 return null;
                               },
@@ -386,14 +386,14 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
                               obscureText: true,
                               controller: _confirmPass,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Confirmer votre Mot de passe",
-                                  "Confirmer votre Mot de passe"),
+                                  "Confirm your Password",
+                                  "Confirm your Password"),
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return "Récrire votre mot de passe !";
+                                  return "Récrire votre password !";
                                 }
                                 if (val != _passwordController.text) {
-                                  return "Le mot de passe ne correspond pas !";
+                                  return "Le password ne correspond pas !";
                                 }
                                 return null;
                               },
@@ -410,15 +410,15 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
                             child: TextFormField(
                               controller: _telController,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Numéro de téléphone",
-                                  "Entrez votre numéro de portable"),
+                                  "Enter your mobile number",
+                                  "Enter your mobile number"),
                               keyboardType: TextInputType.phone,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                  return "Entrez un numéro de téléphone valide";
+                                  return "Enter a valid phone number";
                                 } else if (val.length != 8) {
-                                  return "Entrez un numéro de téléphone valide (8 chiffres)!";
+                                  return "Enter a valid phone number (8 chiffres)!";
                                 }
                                 return null;
                               },
@@ -503,35 +503,35 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
               password: _passwordController.text.trim(),
             )
             .then((uid) => {
-                  Fluttertoast.showToast(msg: "Connexion réussie"),
+                  Fluttertoast.showToast(msg: "Successful connection"),
                   postDetailsToFirestore(),
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const LoginAgent())),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Votre adresse e-mail semble être malformée.";
+         case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
 
             break;
           case "wrong-password":
-            errorMessage = "Votre mot de passe est erroné.";
+            errorMessage = "Your password is wrong.";
             break;
           case "user-not-found":
-            errorMessage = "L'utilisateur avec cet email n'existe pas.";
+            errorMessage = "The user with this email does not exist.";
             break;
           case "user-disabled":
-            errorMessage = "L'utilisateur avec cet e-mail a été désactivé.";
+            errorMessage = "The user with this email has been deactivated.";
             break;
           case "too-many-requests":
-            errorMessage = "Trop de demandes";
+            errorMessage = "too many requests";
             break;
           case "operation-not-allowed":
             errorMessage =
-                "La connexion avec un e-mail et un mot de passe n'est pas activée.";
+                "Login with email and password is not enabled.";
             break;
           default:
-            errorMessage = "Une erreur indéfinie s'est produite.";
+            errorMessage = "An undefined error has occurred.";
         }
         Fluttertoast.showToast(msg: errorMessage!);
         print(error.code);
@@ -552,7 +552,7 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
     // writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;
-    userModel.nom = _nomController.text;
+    userModel.name = _nameController.text;
     userModel.password = _passwordController.text;
     userModel.tel = _telController.text;
 
@@ -560,6 +560,6 @@ class _RegistrationAgentState extends State<RegistrationAgent> {
         .collection("Agents")
         .doc(user.uid)
         .set(userModel.toMap());
-    Fluttertoast.showToast(msg: " Compte créer avec succès :) ");
+    Fluttertoast.showToast(msg: " Account created successfully :) ");
   }
 }

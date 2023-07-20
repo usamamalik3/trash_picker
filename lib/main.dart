@@ -5,11 +5,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:trash_picker/screens/welcome_page.dart';
 
-import 'Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterPoubelle.dart';
-import 'Authentification/Auth_Admin/GererUsers/ConsulterUser/consulterPanne.dart';
-import 'Authentification/Auth_Agent/Dashboard_Agent.dart';
-import 'mpas/ORServisesMaps.dart';
+import 'Authentification/Auth_Admin/ManageUsers/ConsultUser/consultTrashcan.dart';
+import 'Authentification/Auth_Admin/ManageUsers/ConsultUser/consultBreakdown.dart';
+import 'Authentification/Auth_Agent/dashboard_Agent.dart';
+import 'mpas/oRServisesMaps.dart';
 import 'mpas/OpenRouteServices.dart';
 
 const d_red = Color.fromARGB(239, 16, 191, 4);

@@ -2,18 +2,18 @@
 class AgentModel {
   String? uid;
   String? email;
-  String? nom;
+  String? name;
   String? password;
   String? tel;
-  AgentModel({this.uid, this.email, this.nom, this.password, this.tel});
+  AgentModel({this.uid, this.email, this.name, this.password, this.tel});
 
   // receiving data from server
   factory AgentModel.fromMap(map) {
     return AgentModel(
       uid: map['uid'],
       email: map['email'],
-      nom: map['nom'],
-      password: map['mot de passe'],
+      name: map['name'],
+      password: map['password'],
       tel: map['tel'],
     );
   }
@@ -23,8 +23,8 @@ class AgentModel {
     return {
       'uid': uid,
       'email': email,
-      'nom': nom,
-      'mot de passe': password,
+      'name': name,
+      'password': password,
       'tel': tel
     };
   }

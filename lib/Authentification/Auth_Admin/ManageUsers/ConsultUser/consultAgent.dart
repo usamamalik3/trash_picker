@@ -4,10 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trash_picker/Authentification/Auth_Admin/Dashboard_Admin.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/AjoutUsers/AjouterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/AddUsers/add_agent.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/manageUser.dart';
+
 import 'package:trash_picker/mpas/maps/Maps.dart';
 import 'package:trash_picker/screens/SocialPage.dart';
 
@@ -21,23 +20,21 @@ import 'package:flutter/services.dart';
 import '../../../../Theme/menu_item.dart';
 import '../../../../screens/welcome_page.dart';
 import '../../../Auth_Agent/Login_Agent.dart';
-import 'package:trash_picker/UsersInfo/User.dart';
 
-import '../GererUser.dart';
-import '../Update User/UpdateCitoyen.dart';
 
-class consultercamion extends StatefulWidget {
-  const consultercamion({Key? key}) : super(key: key);
+
+class ConsultAgent extends StatefulWidget {
+  const ConsultAgent({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _consultercamionState();
+    return _ConsultAgentState();
   }
 }
 
 List<Object> _ListUser = [];
 
-class _consultercamionState extends State<consultercamion> {
+class _ConsultAgentState extends State<ConsultAgent> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -73,7 +70,7 @@ class _consultercamionState extends State<consultercamion> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ProfileAdmin()));
+                          builder: (context) => const ManageUser()));
                 },
               ),
               const Spacer(),
@@ -93,8 +90,7 @@ class _consultercamionState extends State<consultercamion> {
             ],
           ),
           body: StreamBuilder<QuerySnapshot>(
-            stream:
-                FirebaseFirestore.instance.collection('camions').snapshots(),
+            stream: FirebaseFirestore.instance.collection('Agents').snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshots) {
               if (snapshots.hasError) {
@@ -117,34 +113,51 @@ class _consultercamionState extends State<consultercamion> {
 
                     return new ListTile(
                       leading: const Icon(
-                        Icons.sync_problem,
-                        size: 40,
+                        Icons.person,
+                        size: 50,
                       ),
-                      iconColor: Color.fromARGB(255, 11, 114, 0),
+                      iconColor: const Color.fromARGB(255, 0, 0, 0),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           //!update!!!!!
                           IconButton(
-                            onPressed: () async {
-                              final collection = FirebaseFirestore.instance
-                                  .collection("camions")
-                                  .doc(document.id)
-                                  .delete();
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ConsultAgent()));
                             },
-                            icon: const Icon(Icons.verified),
+                            icon: const Icon(Icons.file_upload_outlined),
                             iconSize: 40,
-                            color: Colors.red,
+                            color: const Color.fromARGB(255, 14, 167, 1),
                           ),
                           //!Dellete
+                          IconButton(
+                            onPressed: () async {
+                              final collection = FirebaseFirestore.instance
+                                  .collection("Agents")
+                                  .doc(document.id)
+                                  .delete();
+                              // collection
+                              //         .doc(document
+                              //             .id) // <-- Doc ID to be deleted.
+                              //         .delete() // <-- Delete
+                              //     ;
+                            },
+                            icon: const Icon(Icons.delete),
+                            iconSize: 40,
+                            color: Colors.red,
+                          )
                         ],
                       ),
                       title: Text(
-                        " matricule:  ${data['matricule']} \n marque:  ${data['marque']} \n type:  ${data['type']}}",
+                        " name & Préname :  ${data['name']} \n Email :  ${data['email']} \n password :  ${data['password']}   \n Téléphone :  ${data['tel']}",
                         style: const TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.w600,
-                            fontFamily: "OoohBaby",
+                            fontFamily: "Roboto",
                             fontStyle: FontStyle.normal,
                             fontSize: 20),
                       ),
@@ -154,6 +167,32 @@ class _consultercamionState extends State<consultercamion> {
                 ),
               );
             },
+          ),
+        ),
+        Container(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            decoration: ThemeHelper().buttonBoxDecoration(context),
+            child: ElevatedButton(
+              style: ThemeHelper().buttonStyle(),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                child: Text(
+                  " Ajouter un agent ".toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddAgent()));
+              },
+            ),
           ),
         ),
         const SizedBox(height: 50.0),

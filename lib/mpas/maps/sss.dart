@@ -39,7 +39,7 @@ class _SearchState extends State<Search> {
                                 id_park: doc.id,
                                 name_park: doc.data()['name'],
                                 tarif: doc.data()['tarif'],
-                                nombre_place: doc.data()['nbre_de_place'],
+                                namebre_place: doc.data()['nbre_de_place'],
                               )));
                 },
                 infoWindow: InfoWindow(

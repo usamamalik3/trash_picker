@@ -1,11 +1,10 @@
 // ignore_for_file: file_names, unused_field, non_constant_identifier_names, unused_local_variable, deprecated_member_use, duplicate_ignore
 
 import 'package:flutter/services.dart';
-import 'package:trash_picker/Authentification/Auth_chauffeur/Login_chauffeur.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-////////////
+import 'package:trash_picker/Authentification/Auth_citizen/login_citizen.dart';
+import 'package:trash_picker/Authentification/auth_driver/login_driver.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
-import 'package:trash_picker/screens/Animation.dart';
+import 'package:trash_picker/screens/animation.dart';
 import 'package:trash_picker/screens/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -224,7 +223,7 @@ class _SocialPageState extends State<SocialPage> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LoginCitoyen()));
+                                builder: (context) => const LoginCitizen()));
                       },
                     ),
                   ),
@@ -269,7 +268,7 @@ class _SocialPageState extends State<SocialPage> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LoginChauffeur()));
+                                builder: (context) => const LoginDriver()));
                       },
                     ),
                   ),

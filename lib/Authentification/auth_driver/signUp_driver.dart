@@ -1,58 +1,63 @@
-// ignore_for_file: unused_import, file_names, deprecated_member_use, unnecessary_new, avoid_print, unused_local_variable
+// ignore_for_file: file_names, unused_field, deprecated_member_use, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/Dashboard_Admin.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
-import 'package:trash_picker/Responsive/responsive.dart';
-import 'package:trash_picker/mpas/maps/Maps.dart';
-import 'package:trash_picker/screens/SocialPage.dart';
-
-import 'package:trash_picker/screens/Animation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:trash_picker/Authentification/auth_driver/login_driver.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
-////////////////
+import 'package:trash_picker/UsersInfo/driverModel.dart';
+import 'package:trash_picker/screens/SocialPage.dart';
+/////////////
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import '../../../../Theme/menu_item.dart';
-import '../../../../UsersInfo/AgentModel.dart';
-import '../../../../UsersInfo/ChauffeurModel.dart';
-import '../../../../UsersInfo/User.dart';
-import '../../../../screens/welcome_page.dart';
-import '../../../Auth_Agent/Login_Agent.dart';
+import 'package:flutter/services.dart';
 
-class AjoutAgent extends StatefulWidget {
-  const AjoutAgent({Key? key}) : super(key: key);
+import '../../Responsive/responsive.dart';
+
+import '../../screens/welcome_page.dart';
+
+class RegistrationDriver extends StatefulWidget {
+  const RegistrationDriver({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _AjoutAgentState();
+    return _RegistrationDriverState();
   }
 }
 
-class _AjoutAgentState extends State<AjoutAgent> {
+class _RegistrationDriverState extends State<RegistrationDriver> {
   final _formKey = GlobalKey<FormState>();
+  bool checkedValue = false;
+  bool checkboxValue = false;
+  final double _headerHeight = 210;
+  final double _drawerIconSize = 24;
+  final double _drawerFontSize = 17;
+
 //! firebase!!!!!!!!
+  final TextEditingController _pass = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
   final _auth = FirebaseAuth.instance;
   String? errorMessage;
   String? dropdownValue;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nomController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _telController = TextEditingController();
 //! firebase!!!!!!!!
-  bool checkedValue = false;
-  bool checkboxValue = false;
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
+    const styles = TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        title: const Text(
+          " Espace Chauffeur ",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
         flexibleSpace: Container(
@@ -73,45 +78,147 @@ class _AjoutAgentState extends State<AjoutAgent> {
             ),
           ),
           IconButton(
-            icon: const Icon(
-              Icons.keyboard_return,
-            ),
+            icon: const Icon(Icons.keyboard_return_sharp),
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ProfileAdmin()));
+                      builder: (context) => const LoginDriver()));
             },
-          ),
-          const Spacer(),
-          Row(
-            children: [
-              NavItem(
-                title: 'Espace Admin',
-                tapEvent: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProfileAdmin()));
-                },
-              ),
-            ],
           ),
         ],
       ),
       ////////////////////////////////////////////////
-
-      body: SafeArea(
+      //!ssssssssssssssssssssssss//////////////////////////////////////////////
+      drawer: Drawer(
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: const [
+                0.0,
+                1.0
+              ],
+                  colors: [
+                Theme.of(context).primaryColor.withOpacity(0.1),
+                Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+              ])),
+          child: ListView(
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [0.0, 1.0],
+                    colors: [
+                      Theme.of(context).primaryColor,
+                      Theme.of(context).colorScheme.secondary,
+                    ],
+                  ),
+                ),
+                child: Container(
+                  alignment: Alignment.bottomLeft,
+                  child: const Text(
+                    "Smart Garbage Collection",
+                    style: TextStyle(
+                        fontSize: 21,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.home,
+                  size: _drawerIconSize,
+                  color: Colors.black87,
+                ),
+                title: Text(
+                  'Accueil',
+                  style: TextStyle(
+                    fontSize: _drawerFontSize,
+                    color: Colors.black87,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WelcomePage()));
+                },
+              ),
+              const Divider(
+                color: Colors.black87,
+                height: 0.5,
+              ),
+              const Divider(
+                color: Colors.black87,
+                height: 0.5,
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.screen_lock_landscape_rounded,
+                  size: _drawerIconSize,
+                  color: Colors.black87,
+                ),
+                title: const Text(
+                  'Social screen',
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.black87,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SocialPage()));
+                },
+              ),
+              const Divider(
+                color: Colors.black87,
+                height: 0.5,
+              ),
+              const Divider(
+                color: Colors.black87,
+                height: 0.5,
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.logout_rounded,
+                  size: _drawerIconSize,
+                  color: Colors.black87,
+                ),
+                title: Text(
+                  'Logout',
+                  style: TextStyle(
+                    fontSize: _drawerFontSize,
+                    color: Colors.black87,
+                  ),
+                ),
+                onTap: () {
+                  SystemNavigator.pop();
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+//////////////////////////////////////////////////////////////////
+      body: SingleChildScrollView(
         child: Stack(
           children: [
             const SizedBox(
-              height: 100,
-              child: HeaderWidget(100, false, Icons.house_rounded),
+              height: 150,
+              child: HeaderWidget(150, false, Icons.person_add_alt_1_rounded),
             ),
             Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.fromLTRB(25, 10, 25, 10),
+              margin: const EdgeInsets.fromLTRB(25, 50, 25, 10),
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              alignment: Alignment.center,
               child: Column(
                 children: [
                   Form(
@@ -139,7 +246,7 @@ class _AjoutAgentState extends State<AjoutAgent> {
 
                                 ///icon user !!!!!!!!!!!!!!!!!
                                 child: const Icon(
-                                  Icons.admin_panel_settings,
+                                  Icons.person,
                                   color: Color.fromARGB(255, 159, 158, 158),
                                   size: 80.0,
                                 ),
@@ -148,7 +255,7 @@ class _AjoutAgentState extends State<AjoutAgent> {
                                 padding:
                                     const EdgeInsets.fromLTRB(80, 80, 0, 0),
                                 child: const Icon(
-                                  Icons.add_circle,
+                                  Icons.person_add_rounded,
                                   color: Color.fromARGB(255, 0, 0, 0),
                                   size: 25.0,
                                 ),
@@ -159,54 +266,191 @@ class _AjoutAgentState extends State<AjoutAgent> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text(
-                          'Ajouter Agent Municipal',
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
+                        Text(
+                          'Créer un nouveau compte',
+                          style: GoogleFonts.alef(
+                            textStyle: styles,
+                            //  fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(218, 23, 23, 23),
+                          ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 30,
                         ),
-                        //!nom!!!!!!!
-                        if (isDesktop(context))
+
+                        ///! istelephone !!!!!!
+                        //!name!!!!!!!
+                        if (!isDesktop(context))
                           Container(
-                            margin: EdgeInsets.only(left: w / 4, right: w / 4),
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Nom et Prénom", "Entrez Nom"),
+                                  "name et Préname", "Entrer votre name"),
                               keyboardType: TextInputType.name,
-                              controller: _nomController,
+                              controller: _nameController,
                               validator: (val) {
+                                // ignore: unnecessary_new
+                                RegExp regex = new RegExp(r'^.{3,}$');
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Nom et Prénom !";
+                                  return "Enter your First and Last Name !";
+                                } else if (!regex.hasMatch(val)) {
+                                  return "Entrez un name valide (Min. 3 caractères)!";
                                 }
                                 return null;
                               },
                               onSaved: (val) {
-                                _nomController.text = val!;
+                                _nameController.text = val!;
                               },
                             ),
                             decoration:
                                 ThemeHelper().inputBoxDecorationShaddow(),
                           ),
-                        if (isDesktop(context))
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        //!email !!!!!!!!!!!!!!!
-                        if (isDesktop(context))
+                        if (!isDesktop(context)) const SizedBox(height: 20.0),
+                        //!email!!!
+                        if (!isDesktop(context))
                           Container(
-                            margin: EdgeInsets.only(left: w / 4, right: w / 4),
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Adresse e-mail", "Entrez votre e-mail"),
+                                  "E-mail address", "Enter your e-mail"),
                               keyboardType: TextInputType.emailAddress,
                               controller: _emailController,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                         .hasMatch(val)) {
-                                  return "Entrer une adresse e-mail valide !";
+                                  return "Enter a valid email address !";
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                _emailController.text = val!;
+                              },
+                            ),
+                            decoration:
+                                ThemeHelper().inputBoxDecorationShaddow(),
+                          ),
+                        if (!isDesktop(context)) const SizedBox(height: 20.0),
+
+                        //!password!!!!!!!!!!!!!!!!!!!!!!!
+                        if (!isDesktop(context))
+                          Container(
+                            child: TextFormField(
+                              obscureText: true,
+                              controller: _passwordController,
+                              //controller: _pass,
+                              decoration: ThemeHelper().textInputDecoration(
+                                  "Confirm your PasswordEnter your password"),
+                              validator: (val) {
+                                RegExp regex = RegExp(r'^.{6,}$');
+                                if (val!.isEmpty) {
+                                  return "Confirm your PasswordEnter your password !";
+                                } else if (!regex.hasMatch(val)) {
+                                  return "Entrez password valide (Min. 6 caractères)!";
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                _passwordController.text = val!;
+                              },
+                            ),
+                            decoration:
+                                ThemeHelper().inputBoxDecorationShaddow(),
+                          ),
+                        if (!isDesktop(context)) const SizedBox(height: 20.0),
+                        //!confirm password!!!!!!!!!!!!!!!!!!!!!!!
+                        if (!isDesktop(context))
+                          Container(
+                            child: TextFormField(
+                              obscureText: true,
+                              controller: _confirmPass,
+                              decoration: ThemeHelper().textInputDecoration(
+                                  "Confirm your Password",
+                                  "Confirm your Password"),
+                              validator: (val) {
+                                if (val!.isEmpty) {
+                                  return "Récrire votre password !";
+                                }
+                                if (val != _passwordController.text) {
+                                  return "Le password ne correspond pas !";
+                                }
+                                return null;
+                              },
+                            ),
+                            decoration:
+                                ThemeHelper().inputBoxDecorationShaddow(),
+                          ),
+                        if (!isDesktop(context)) const SizedBox(height: 20.0),
+//!telephone !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        if (!isDesktop(context))
+                          Container(
+                            child: TextFormField(
+                              controller: _telController,
+                              decoration: ThemeHelper().textInputDecoration(
+                                  "Enter your mobile number",
+                                  "Enter your mobile number"),
+                              keyboardType: TextInputType.phone,
+                              validator: (val) {
+                                if (val!.isEmpty ||
+                                    !RegExp(r"^(\d+)*$").hasMatch(val)) {
+                                  return "Enter a valid phone number";
+                                } else if (val.length != 8) {
+                                  return "Enter a valid phone number (8 chiffres)!";
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                _telController.text = val!;
+                              },
+                            ),
+                            decoration:
+                                ThemeHelper().inputBoxDecorationShaddow(),
+                          ),
+
+                        ///!  is telephone:!!!!!!
+                        ///!  isDesktop!!!!!!!!
+                        ///!name!!!!!!!
+                        if (isDesktop(context))
+                          Container(
+                            margin:
+                                EdgeInsets.only(left: w / 3.8, right: w / 3.8),
+                            child: TextFormField(
+                              decoration: ThemeHelper().textInputDecoration(
+                                  "Last name and First name", "Enter Last name"),
+                              keyboardType: TextInputType.name,
+                              controller: _nameController,
+                              validator: (val) {
+                                RegExp regex = RegExp(r'^.{3,}$');
+
+                                if (val!.isEmpty) {
+                                  return "Enter your First and Last Name !";
+                                } else if (!regex.hasMatch(val)) {
+                                  return "Entrez un name valide (Min. 3 caractères)!";
+                                }
+                                return null;
+                              },
+                              onSaved: (val) {
+                                _nameController.text = val!;
+                              },
+                            ),
+                            decoration:
+                                ThemeHelper().inputBoxDecorationShaddow(),
+                          ),
+                        if (isDesktop(context)) const SizedBox(height: 20.0),
+
+                        //!email!!!
+                        if (isDesktop(context))
+                          Container(
+                            margin:
+                                EdgeInsets.only(left: w / 3.8, right: w / 3.8),
+                            child: TextFormField(
+                              decoration: ThemeHelper().textInputDecoration(
+                                  "E-mail address", "Enter your e-mail"),
+                              keyboardType: TextInputType.emailAddress,
+                              controller: _emailController,
+                              validator: (val) {
+                                if (val!.isEmpty ||
+                                    !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                                        .hasMatch(val)) {
+                                  return "Enter a valid email address !";
                                 }
                                 return null;
                               },
@@ -218,19 +462,24 @@ class _AjoutAgentState extends State<AjoutAgent> {
                                 ThemeHelper().inputBoxDecorationShaddow(),
                           ),
                         if (isDesktop(context)) const SizedBox(height: 20.0),
+
                         //!password!!!!!!!!!!!!!!!!!!!!!!!
                         if (isDesktop(context))
                           Container(
-                            margin: EdgeInsets.only(left: w / 4, right: w / 4),
+                            margin:
+                                EdgeInsets.only(left: w / 3.8, right: w / 3.8),
                             child: TextFormField(
                               obscureText: true,
                               controller: _passwordController,
                               //controller: _pass,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Mot de passe", "Entrer votre mot de passe"),
+                                  "Confirm your PasswordEnter your password"),
                               validator: (val) {
+                                RegExp regex = RegExp(r'^.{6,}$');
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Mot de passe !";
+                                  return "Confirm your PasswordEnter your password !";
+                                } else if (!regex.hasMatch(val)) {
+                                  return "Entrez password valide (Min. 6 caractères)!";
                                 }
                                 return null;
                               },
@@ -245,19 +494,20 @@ class _AjoutAgentState extends State<AjoutAgent> {
                         //!confirm password!!!!!!!!!!!!!!!!!!!!!!!
                         if (isDesktop(context))
                           Container(
-                            margin: EdgeInsets.only(left: w / 4, right: w / 4),
+                            margin:
+                                EdgeInsets.only(left: w / 3.8, right: w / 3.8),
                             child: TextFormField(
                               obscureText: true,
                               controller: _confirmPass,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Confirmer votre Mot de passe",
-                                  "Entrer votre mot de passe"),
+                                  "Confirm your Password",
+                                  "Confirm your Password"),
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return "récrire votre mot de passe !";
+                                  return "Récrire votre password !";
                                 }
                                 if (val != _passwordController.text) {
-                                  return "Ne pas correspondre !";
+                                  return "Le password ne correspond pas !";
                                 }
                                 return null;
                               },
@@ -265,22 +515,24 @@ class _AjoutAgentState extends State<AjoutAgent> {
                             decoration:
                                 ThemeHelper().inputBoxDecorationShaddow(),
                           ),
-                        const SizedBox(height: 20.0),
-
-                        ///!telephone !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        if (isDesktop(context)) const SizedBox(height: 20.0),
+//!telephone !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                         if (isDesktop(context))
                           Container(
-                            margin: EdgeInsets.only(left: w / 4, right: w / 4),
+                            margin:
+                                EdgeInsets.only(left: w / 3.8, right: w / 3.8),
                             child: TextFormField(
                               controller: _telController,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Numéro de téléphone",
-                                  "Entrez votre numéro de portable"),
+                                  "Enter your mobile number",
+                                  "Enter your mobile number"),
                               keyboardType: TextInputType.phone,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                  return "Entrez un numéro de téléphone valide";
+                                  return "Enter a valid phone number";
+                                } else if (val.length != 8) {
+                                  return "Enter a valid phone number (8 chiffres)!";
                                 }
                                 return null;
                               },
@@ -291,135 +543,10 @@ class _AjoutAgentState extends State<AjoutAgent> {
                             decoration:
                                 ThemeHelper().inputBoxDecorationShaddow(),
                           ),
-                        const SizedBox(height: 20.0),
+
+                        ///! isdesctop!!!!!!!!
                         ////////////////////////////////bottom login !!!!!!!!!!!!!
-                        ///
-                        ///
-                        ///telephone
-                        //!nom!!!!!!!
-                        if (!isDesktop(context))
-                          Container(
-                            child: TextFormField(
-                              decoration: ThemeHelper().textInputDecoration(
-                                  "Nom et Prénom", "Entrez Nom"),
-                              keyboardType: TextInputType.name,
-                              controller: _nomController,
-                              validator: (val) {
-                                if (val!.isEmpty) {
-                                  return "Entrer votre Nom et Prénom !";
-                                }
-                                return null;
-                              },
-                              onSaved: (val) {
-                                _nomController.text = val!;
-                              },
-                            ),
-                            decoration:
-                                ThemeHelper().inputBoxDecorationShaddow(),
-                          ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        //!email !!!!!!!!!!!!!!!
-                        if (!isDesktop(context))
-                          Container(
-                            child: TextFormField(
-                              decoration: ThemeHelper().textInputDecoration(
-                                  "Adresse e-mail", "Entrez votre e-mail"),
-                              keyboardType: TextInputType.emailAddress,
-                              controller: _emailController,
-                              validator: (val) {
-                                if (val!.isEmpty ||
-                                    !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
-                                        .hasMatch(val)) {
-                                  return "Entrer une adresse e-mail valide !";
-                                }
-                                return null;
-                              },
-                              onSaved: (val) {
-                                _emailController.text = val!;
-                              },
-                            ),
-                            decoration:
-                                ThemeHelper().inputBoxDecorationShaddow(),
-                          ),
-                        if (!isDesktop(context)) const SizedBox(height: 20.0),
-                        if (!isDesktop(context))
-                          //!password!!!!!!!!!!!!!!!!!!!!!!!
-                          Container(
-                            child: TextFormField(
-                              obscureText: true,
-                              controller: _passwordController,
-                              //controller: _pass,
-                              decoration: ThemeHelper().textInputDecoration(
-                                  "Mot de passe", "Entrer votre mot de passe"),
-                              validator: (val) {
-                                if (val!.isEmpty) {
-                                  return "Entrer votre Mot de passe !";
-                                }
-                                return null;
-                              },
-                              onSaved: (val) {
-                                _passwordController.text = val!;
-                              },
-                            ),
-                            decoration:
-                                ThemeHelper().inputBoxDecorationShaddow(),
-                          ),
-                        if (!isDesktop(context)) const SizedBox(height: 20.0),
-                        //!confirm password!!!!!!!!!!!!!!!!!!!!!!!
-                        if (!isDesktop(context))
-                          Container(
-                            child: TextFormField(
-                              obscureText: true,
-                              controller: _confirmPass,
-                              decoration: ThemeHelper().textInputDecoration(
-                                  "Confirmer votre Mot de passe",
-                                  "Entrer votre mot de passe"),
-                              validator: (val) {
-                                if (val!.isEmpty) {
-                                  return "récrire votre mot de passe !";
-                                }
-                                if (val != _passwordController.text) {
-                                  return "Ne pas correspondre !";
-                                }
-                                return null;
-                              },
-                            ),
-                            decoration:
-                                ThemeHelper().inputBoxDecorationShaddow(),
-                          ),
-                        if (!isDesktop(context)) const SizedBox(height: 20.0),
-
-                        ///!telephone !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        if (!isDesktop(context))
-                          Container(
-                            child: TextFormField(
-                              controller: _telController,
-                              decoration: ThemeHelper().textInputDecoration(
-                                  "Numéro de téléphone",
-                                  "Entrez votre numéro de portable"),
-                              keyboardType: TextInputType.phone,
-                              validator: (val) {
-                                if (val!.isEmpty ||
-                                    !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                  return "Entrez un numéro de téléphone valide";
-                                }
-                                return null;
-                              },
-                              onSaved: (val) {
-                                _telController.text = val!;
-                              },
-                            ),
-                            decoration:
-                                ThemeHelper().inputBoxDecorationShaddow(),
-                          ),
-                        const SizedBox(height: 40.0),
-
-                        ///
-                        ///
-                        ///
-
+                        const SizedBox(height: 20.0),
                         Container(
                           decoration:
                               ThemeHelper().buttonBoxDecoration(context),
@@ -429,7 +556,7 @@ class _AjoutAgentState extends State<AjoutAgent> {
                               padding:
                                   const EdgeInsets.fromLTRB(40, 10, 40, 10),
                               child: Text(
-                                "Enregistrer".toUpperCase(),
+                                "S'inscrire".toUpperCase(),
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -445,6 +572,27 @@ class _AjoutAgentState extends State<AjoutAgent> {
                             },
                           ),
                         ),
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                          //child: Text('Don\'t have an account? Create'),
+                          child: Text.rich(TextSpan(children: [
+                            const TextSpan(text: "Vous avez un compte ? "),
+                            TextSpan(
+                              text: 'Connecter',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginDriver()));
+                                },
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.secondary),
+                            ),
+                          ])),
+                        ),
                       ],
                     ),
                   ),
@@ -457,18 +605,6 @@ class _AjoutAgentState extends State<AjoutAgent> {
     );
   }
 
-  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-        value: item,
-
-        child: Text(
-          item,
-          style: const TextStyle(
-            //fontWeight: FontWeight.w600,
-            fontSize: 18,
-            color: Color.fromARGB(255, 98, 98, 98),
-          ),
-        ), // Text
-      ); // DropdownMenuItem
   void signUp(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -478,35 +614,35 @@ class _AjoutAgentState extends State<AjoutAgent> {
               password: _passwordController.text.trim(),
             )
             .then((uid) => {
-                  Fluttertoast.showToast(msg: "Connexion réussie"),
+                  Fluttertoast.showToast(msg: "Successful connection"),
                   postDetailsToFirestore(),
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const LoginCitoyen())),
+                      builder: (context) => const LoginDriver())),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Votre adresse e-mail semble être malformée.";
+         case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
 
             break;
           case "wrong-password":
-            errorMessage = "Votre mot de passe est erroné.";
+            errorMessage = "Your password is wrong.";
             break;
           case "user-not-found":
-            errorMessage = "L'utilisateur avec cet email n'existe pas.";
+            errorMessage = "The user with this email does not exist.";
             break;
           case "user-disabled":
-            errorMessage = "L'utilisateur avec cet e-mail a été désactivé.";
+            errorMessage = "The user with this email has been deactivated.";
             break;
           case "too-many-requests":
-            errorMessage = "Trop de demandes";
+            errorMessage = "too many requests";
             break;
           case "operation-not-allowed":
             errorMessage =
-                "La connexion avec un e-mail et un mot de passe n'est pas activée.";
+                "Login with email and password is not enabled.";
             break;
           default:
-            errorMessage = "Une erreur indéfinie s'est produite.";
+            errorMessage = "An undefined error has occurred.";
         }
         Fluttertoast.showToast(msg: errorMessage!);
         print(error.code);
@@ -522,19 +658,19 @@ class _AjoutAgentState extends State<AjoutAgent> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 
-    AgentModel userModel = AgentModel();
+    DriverModel userModel = DriverModel();
 
     // writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;
-    userModel.nom = _nomController.text;
+    userModel.name = _nameController.text;
     userModel.password = _passwordController.text;
     userModel.tel = _telController.text;
 
     await firebaseFirestore
-        .collection("Agents")
+        .collection("Driver")
         .doc(user.uid)
         .set(userModel.toMap());
-    Fluttertoast.showToast(msg: " Compte créer avec succès :) ");
+    Fluttertoast.showToast(msg: " Compte créer avec succès:) ");
   }
 }

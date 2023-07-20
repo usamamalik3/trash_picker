@@ -5,10 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/UsersInfo/User.dart';
-import 'package:trash_picker/UsersInfo/pannemadel.dart';
-import 'package:trash_picker/mpas/ORServisesMaps.dart';
+
+import 'package:trash_picker/UsersInfo/breakdownmodel.dart';
+import 'package:trash_picker/mpas/oRServisesMaps.dart';
 import 'package:trash_picker/screens/SocialPage.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
@@ -20,16 +19,16 @@ import 'package:trash_picker/screens/welcome_page.dart';
 
 import '../../Responsive/responsive.dart';
 
-class panne extends StatefulWidget {
-  const panne({Key? key}) : super(key: key);
+class Breakdown extends StatefulWidget {
+  const Breakdown({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _panneState();
+    return _BreakdownState();
   }
 }
 
-class _panneState extends State<panne> {
+class _BreakdownState extends State<Breakdown> {
   final _formKey = GlobalKey<FormState>();
   static final List<String> items = <String>[
     'Panne camion',
@@ -54,7 +53,7 @@ class _panneState extends State<panne> {
   String? pannevalue;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nomController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _panneController = TextEditingController();
   final TextEditingController _telController = TextEditingController();
 
@@ -299,29 +298,29 @@ class _panneState extends State<panne> {
                         const SizedBox(
                           height: 30,
                         ),
-                        //!nom!!!!!!!
+                        //!name!!!!!!!
                         if (isDesktop(context))
                           Container(
                             margin:
                                 EdgeInsets.only(left: w / 3.8, right: w / 3.8),
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Nom et Prénom Chauffeur",
-                                  "Entrer votre Nom"),
+                                  "name et Préname Chauffeur",
+                                  "Entrer votre name"),
                               keyboardType: TextInputType.name,
-                              controller: _nomController,
+                              controller: _nameController,
                               validator: (val) {
                                 RegExp regex = RegExp(r'^.{3,}$');
 
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Nom et Prénom !";
+                                  return "Enter your First and Last Name !";
                                 } else if (!regex.hasMatch(val)) {
-                                  return "Entrez un nom valide (Min. 3 caractères)!";
+                                  return "Entrez un name valide (Min. 3 caractères)!";
                                 }
                                 return null;
                               },
                               onSaved: (val) {
-                                _nomController.text = val!;
+                                _nameController.text = val!;
                               },
                             ),
                             decoration:
@@ -341,15 +340,15 @@ class _panneState extends State<panne> {
                             child: TextFormField(
                               controller: _telController,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Numéro de téléphone",
-                                  "Entrez votre numéro de portable"),
+                                  "Enter your mobile number",
+                                  "Enter your mobile number"),
                               keyboardType: TextInputType.phone,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                  return "Entrez un numéro de téléphone valide";
+                                  return "Enter a valid phone number";
                                 } else if (val.length != 8) {
-                                  return "Entrez un numéro de téléphone valide (8 chiffres)!";
+                                  return "Enter a valid phone number (8 chiffres)!";
                                 }
                                 return null;
                               },
@@ -466,21 +465,21 @@ class _panneState extends State<panne> {
                           Container(
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Nom et Prénom Chauffeur",
-                                  "Entrer votre Nom"),
+                                  "name et Préname Chauffeur",
+                                  "Entrer votre name"),
                               keyboardType: TextInputType.name,
-                              controller: _nomController,
+                              controller: _nameController,
                               validator: (val) {
                                 RegExp regex = RegExp(r'^.{3,}$');
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Nom et Prénom !";
+                                  return "Enter your First and Last Name !";
                                 } else if (!regex.hasMatch(val)) {
-                                  return "Entrez un nom valide (Min. 3 caractères)!";
+                                  return "Entrez un name valide (Min. 3 caractères)!";
                                 }
                                 return null;
                               },
                               onSaved: (val) {
-                                _nomController.text = val!;
+                                _nameController.text = val!;
                               },
                             ),
                             decoration:
@@ -494,15 +493,15 @@ class _panneState extends State<panne> {
                             child: TextFormField(
                               controller: _telController,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Numéro de téléphone",
-                                  "Entrez votre numéro de portable"),
+                                  "Enter your mobile number",
+                                  "Enter your mobile number"),
                               keyboardType: TextInputType.phone,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                  return "Entrez un numéro de téléphone valide";
+                                  return "Enter a valid phone number";
                                 } else if (val.length != 8) {
-                                  return "Entrez un numéro de téléphone valide (8 chiffres)!";
+                                  return "Enter a valid phone number (8 chiffres)!";
                                 }
                                 return null;
                               },
@@ -675,7 +674,7 @@ class _panneState extends State<panne> {
     // writing all the values
 
     panneModel.uid = user?.uid;
-    panneModel.nom = _nomController.text;
+    panneModel.name = _nameController.text;
     panneModel.camion = camionvalue;
     panneModel.panne = pannevalue;
     panneModel.tel = _telController.text;

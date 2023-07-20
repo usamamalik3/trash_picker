@@ -2,37 +2,37 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/Dashboard_Admin.dart';
+import 'package:trash_picker/Authentification/Auth_citizen/login_citizen.dart';
+
+import 'package:trash_picker/Responsive/responsive.dart';
 import 'package:trash_picker/mpas/maps/Maps.dart';
 import 'package:trash_picker/screens/SocialPage.dart';
 
-import 'package:trash_picker/screens/Animation.dart';
+import 'package:trash_picker/screens/animation.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
 ////////////////
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../../../Responsive/responsive.dart';
 import '../../../../Theme/menu_item.dart';
-import '../../../../UsersInfo/ChauffeurModel.dart';
-import '../../../../UsersInfo/User.dart';
+import '../../../../UsersInfo/agentModel.dart';
+import '../../../../UsersInfo/driverModel.dart';
+
 import '../../../../screens/welcome_page.dart';
 import '../../../Auth_Agent/Login_Agent.dart';
-import '../../Dashboard_Admin.dart';
 
-class AjoutChauffeurs extends StatefulWidget {
-  const AjoutChauffeurs({Key? key}) : super(key: key);
+class AddAgent extends StatefulWidget {
+  const AddAgent({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _AjoutChauffeursState();
+    return _AddAgentState();
   }
 }
 
-class _AjoutChauffeursState extends State<AjoutChauffeurs> {
+class _AddAgentState extends State<AddAgent> {
   final _formKey = GlobalKey<FormState>();
 //! firebase!!!!!!!!
   final TextEditingController _confirmPass = TextEditingController();
@@ -41,7 +41,7 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
   String? dropdownValue;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nomController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _telController = TextEditingController();
 //! firebase!!!!!!!!
   bool checkedValue = false;
@@ -86,7 +86,7 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
           Row(
             children: [
               NavItem(
-                title: 'Espace Admin',
+                title: 'Admin area',
                 tapEvent: () {
                   Navigator.pushReplacement(
                       context,
@@ -159,30 +159,30 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                           height: 20,
                         ),
                         const Text(
-                          'Ajouter Chauffeurs',
+                          'Add Municipal Agent',
                           style: TextStyle(
                               fontSize: 22, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        //!nom!!!!!!!
+                        //!name!!!!!!!
                         if (isDesktop(context))
                           Container(
                             margin: EdgeInsets.only(left: w / 4, right: w / 4),
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Nom et Prénom", "Entrez Nom"),
+                                  "Last name and First name", "Enter Last name"),
                               keyboardType: TextInputType.name,
-                              controller: _nomController,
+                              controller: _nameController,
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Nom et Prénom !";
+                                  return "Enter your First and Last Name !";
                                 }
                                 return null;
                               },
                               onSaved: (val) {
-                                _nomController.text = val!;
+                                _nameController.text = val!;
                               },
                             ),
                             decoration:
@@ -198,14 +198,14 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                             margin: EdgeInsets.only(left: w / 4, right: w / 4),
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Adresse e-mail", "Entrez votre e-mail"),
+                                  "E-mail address", "Enter your e-mail"),
                               keyboardType: TextInputType.emailAddress,
                               controller: _emailController,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                         .hasMatch(val)) {
-                                  return "Entrer une adresse e-mail valide !";
+                                  return "Enter a valid email address !";
                                 }
                                 return null;
                               },
@@ -226,10 +226,10 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                               controller: _passwordController,
                               //controller: _pass,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Mot de passe", "Entrer votre mot de passe"),
+                                  "Confirm your PasswordEnter your password"),
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Mot de passe !";
+                                  return "Confirm your PasswordEnter your password !";
                                 }
                                 return null;
                               },
@@ -249,14 +249,14 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                               obscureText: true,
                               controller: _confirmPass,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Confirmer votre Mot de passe",
-                                  "Entrer votre mot de passe"),
+                                  "Confirm your Password",
+                                  "Confirm your PasswordEnter your password"),
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return "récrire votre mot de passe !";
+                                  return "récrire votre password !";
                                 }
                                 if (val != _passwordController.text) {
-                                  return "Ne pas correspondre !";
+                                  return "don't match !";
                                 }
                                 return null;
                               },
@@ -273,13 +273,13 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                             child: TextFormField(
                               controller: _telController,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Numéro de téléphone",
-                                  "Entrez votre numéro de portable"),
+                                  "Enter your mobile number",
+                                  "Enter your mobile number"),
                               keyboardType: TextInputType.phone,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                  return "Entrez un numéro de téléphone valide";
+                                  return "Enter a valid phone number";
                                 }
                                 return null;
                               },
@@ -295,22 +295,22 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                         ///
                         ///
                         ///telephone
-                        //!nom!!!!!!!
+                        //!name!!!!!!!
                         if (!isDesktop(context))
                           Container(
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Nom et Prénom", "Entrez Nom"),
+                                  "Last name and First name", "Enter Last name"),
                               keyboardType: TextInputType.name,
-                              controller: _nomController,
+                              controller: _nameController,
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Nom et Prénom !";
+                                  return "Enter your First and Last Name !";
                                 }
                                 return null;
                               },
                               onSaved: (val) {
-                                _nomController.text = val!;
+                                _nameController.text = val!;
                               },
                             ),
                             decoration:
@@ -324,14 +324,14 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                           Container(
                             child: TextFormField(
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Adresse e-mail", "Entrez votre e-mail"),
+                                  "E-mail address", "Enter your e-mail"),
                               keyboardType: TextInputType.emailAddress,
                               controller: _emailController,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                         .hasMatch(val)) {
-                                  return "Entrer une adresse e-mail valide !";
+                                  return "Enter a valid email address !";
                                 }
                                 return null;
                               },
@@ -351,10 +351,10 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                               controller: _passwordController,
                               //controller: _pass,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Mot de passe", "Entrer votre mot de passe"),
+                                  "Confirm your PasswordEnter your password"),
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return "Entrer votre Mot de passe !";
+                                  return "Confirm your PasswordEnter your password !";
                                 }
                                 return null;
                               },
@@ -373,14 +373,14 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                               obscureText: true,
                               controller: _confirmPass,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Confirmer votre Mot de passe",
-                                  "Entrer votre mot de passe"),
+                                  "Confirm your Password",
+                                  "Confirm your PasswordEnter your password"),
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return "récrire votre mot de passe !";
+                                  return "récrire votre password !";
                                 }
                                 if (val != _passwordController.text) {
-                                  return "Ne pas correspondre !";
+                                  return "don't match !";
                                 }
                                 return null;
                               },
@@ -396,13 +396,13 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                             child: TextFormField(
                               controller: _telController,
                               decoration: ThemeHelper().textInputDecoration(
-                                  "Numéro de téléphone",
-                                  "Entrez votre numéro de portable"),
+                                  "Enter your mobile number",
+                                  "Enter your mobile number"),
                               keyboardType: TextInputType.phone,
                               validator: (val) {
                                 if (val!.isEmpty ||
                                     !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                  return "Entrez un numéro de téléphone valide";
+                                  return "Enter a valid phone number";
                                 }
                                 return null;
                               },
@@ -414,7 +414,11 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                                 ThemeHelper().inputBoxDecorationShaddow(),
                           ),
                         const SizedBox(height: 40.0),
-                        ////////////////////////////////bottom login !!!!!!!!!!!!!
+
+                        ///
+                        ///
+                        ///
+
                         Container(
                           decoration:
                               ThemeHelper().buttonBoxDecoration(context),
@@ -424,7 +428,7 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
                               padding:
                                   const EdgeInsets.fromLTRB(40, 10, 40, 10),
                               child: Text(
-                                "Enregistrer".toUpperCase(),
+                                "Register".toUpperCase(),
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -473,35 +477,35 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
               password: _passwordController.text.trim(),
             )
             .then((uid) => {
-                  Fluttertoast.showToast(msg: "Connexion réussie"),
+                  Fluttertoast.showToast(msg: "Successful connection"),
                   postDetailsToFirestore(),
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const LoginCitoyen())),
+                      builder: (context) => const LoginCitizen())),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Votre adresse e-mail semble être malformée.";
+         case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
 
             break;
           case "wrong-password":
-            errorMessage = "Votre mot de passe est erroné.";
+            errorMessage = "Your password is wrong.";
             break;
           case "user-not-found":
-            errorMessage = "L'utilisateur avec cet email n'existe pas.";
+            errorMessage = "The user with this email does not exist.";
             break;
           case "user-disabled":
-            errorMessage = "L'utilisateur avec cet e-mail a été désactivé.";
+            errorMessage = "The user with this email has been deactivated.";
             break;
           case "too-many-requests":
-            errorMessage = "Trop de demandes";
+            errorMessage = "too many requests";
             break;
           case "operation-not-allowed":
             errorMessage =
-                "La connexion avec un e-mail et un mot de passe n'est pas activée.";
+                "Login with email and password is not enabled.";
             break;
           default:
-            errorMessage = "Une erreur indéfinie s'est produite.";
+            errorMessage = "An undefined error has occurred.";
         }
         Fluttertoast.showToast(msg: errorMessage!);
         print(error.code);
@@ -517,19 +521,19 @@ class _AjoutChauffeursState extends State<AjoutChauffeurs> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 
-    ChauffeurModel userModel = ChauffeurModel();
+    AgentModel userModel = AgentModel();
 
     // writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;
-    userModel.nom = _nomController.text;
+    userModel.name = _nameController.text;
     userModel.password = _passwordController.text;
     userModel.tel = _telController.text;
 
     await firebaseFirestore
-        .collection("Chauffeurs")
+        .collection("Agents")
         .doc(user.uid)
         .set(userModel.toMap());
-    Fluttertoast.showToast(msg: " Compte créer avec succès:) ");
+    Fluttertoast.showToast(msg: " Account created successfully :) ");
   }
 }

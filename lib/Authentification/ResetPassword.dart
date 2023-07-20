@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
+import 'package:trash_picker/Authentification/Auth_citizen/login_citizen.dart';
 import 'package:trash_picker/Responsive/responsive.dart';
 import 'package:trash_picker/screens/SocialPage.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
@@ -212,7 +212,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   child: Column(
                     children: [
                       Text(
-                        'Réinitialisation du mot de passe',
+                        'Réinitialisation du password',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.alef(
                           textStyle: styles,
@@ -222,7 +222,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       ),
                       const SizedBox(height: 30.0),
                       const Text(
-                        'Entrer votre adresse e-mail pour réinitialiser le mot de passe',
+                        'Entrer votre adresse e-mail pour réinitialiser le password',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Color.fromARGB(255, 133, 133, 133)),
@@ -241,7 +241,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                   child: TextFormField(
                                     controller: _emailController,
                                     decoration: ThemeHelper().textInputDecoration(
-                                        "Entrer votre adresse e-mail pour réinitialiser le mot de passe",
+                                        "Entrer votre adresse e-mail pour réinitialiser le password",
                                         "Entrer votre adresse e-mail"),
                                     autovalidateMode:
                                         AutovalidateMode.onUserInteraction,
@@ -250,7 +250,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                       if (val!.isEmpty ||
                                           !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                               .hasMatch(val)) {
-                                        return "Entrer une adresse e-mail valide !";
+                                        return "Enter a valid email address !";
                                       }
                                       return null;
                                     },
@@ -275,7 +275,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                       if (val!.isEmpty ||
                                           !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                               .hasMatch(val)) {
-                                        return "Entrer une adresse e-mail valide";
+                                        return "Enter a valid email address";
                                       }
                                       return null;
                                     },
@@ -336,9 +336,9 @@ class _ResetPasswordState extends State<ResetPassword> {
           .sendPasswordResetEmail(email: _emailController.text.trim());
       debugPrint("mriiiiiiiiiiiiiiiiiiiigl ");
       Fluttertoast.showToast(
-          msg: "E-mail de réinitialisation du mot de passe envoyé");
+          msg: "E-mail de réinitialisation du password envoyé");
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const LoginCitoyen()));
+          MaterialPageRoute(builder: (context) => const LoginCitizen()));
     } on FirebaseAuthException catch (error) {
       switch (error.code) {
         case "invalid-email":
@@ -346,7 +346,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
           break;
         case "wrong-password":
-          errorMessage = "Votre mot de passe est erroné.";
+          errorMessage = "Votre password est erroné.";
           break;
         case "user-not-found":
           errorMessage = "L'utilisateur avec cet email n'existe pas.";
@@ -359,7 +359,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           break;
         case "operation-not-allowed":
           errorMessage =
-              "La connexion avec un e-mail et un mot de passe n'est pas activée.";
+              "La connexion avec un e-mail et un password n'est pas activée.";
           break;
         default:
           errorMessage = "Une erreur indéfinie s'est produite.";

@@ -66,7 +66,7 @@ class _ListePatientsState extends State<ListePatients> {
                       )
                     ],
                   ),
-                  title: Text(data['Nom'],
+                  title: Text(data['name'],
                       style: const TextStyle(
                           color: Color(0xffffffff),
                           fontWeight: FontWeight.w500,

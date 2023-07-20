@@ -83,7 +83,7 @@ class _ORServisesadminState extends State<ORServisesadmin> {
                     LatLng(doc.data()["Latitude"], doc.data()["Longitude"]),
                 infoWindow: InfoWindow(
                   title:
-                      " NomId : ${doc.data()["name"]} \n State : ${doc.data()["state"]}",
+                      " nameId : ${doc.data()["name"]} \n State : ${doc.data()["state"]}",
                   snippet: "percentage : ${doc.data()["percentage"]}",
                 ),
                 icon: BitmapDescriptor.defaultMarkerWithHue(
@@ -125,7 +125,7 @@ class _ORServisesadminState extends State<ORServisesadmin> {
                 position:
                     LatLng(doc.data()["Latitude"], doc.data()["Longitude"]),
                 infoWindow: InfoWindow(
-                  title: " NomId : ${doc.data()["name"]}",
+                  title: " nameId : ${doc.data()["name"]}",
                   snippet:
                       "percentage : ${doc.data()["percentage"]} \n State : ${doc.data()["state"]}",
                 ),

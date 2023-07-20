@@ -2,14 +2,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/ConsulterUser/ConsulterCitoyen.dart';
-import 'package:trash_picker/Authentification/Auth_Admin/GererUsers/GererUser.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
-import 'package:trash_picker/mpas/maps/Maps.dart';
-import 'package:trash_picker/screens/SocialPage.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/ConsultUser/conultciztizen.dart';
+import 'package:trash_picker/Authentification/Auth_Admin/ManageUsers/manageUser.dart';
 
-import 'package:trash_picker/screens/Animation.dart';
+import 'package:trash_picker/mpas/maps/Maps.dart';
+import 'package:trash_picker/screens/socialPage.dart';
+
+import 'package:trash_picker/screens/animation.dart';
 import 'package:trash_picker/Theme/header_widget.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
 ////////////////
@@ -17,23 +16,24 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../../Theme/menu_item.dart';
-import '../../../../UsersInfo/User.dart';
+
 import '../../../../screens/welcome_page.dart';
 import '../../../Auth_Agent/Login_Agent.dart';
 
-class UpdateCitoyen extends StatefulWidget {
-  UpdateCitoyen(
+// ignore: must_be_immutable
+class UpdateCitizen extends StatefulWidget {
+  UpdateCitizen(
       {Key? key,
       required this.email,
       // required this.location,
-      required this.nom,
+      required this.name,
       required this.id,
       required this.password})
       : super(key: key);
 
   String email;
   // String location;
-  String nom;
+  String name;
   String id;
   String password;
 
@@ -41,15 +41,15 @@ class UpdateCitoyen extends StatefulWidget {
 
   String? newemail;
   // String? newlocation;
-  String? newnom;
+  String? newname;
   String? newid;
   String? newpassword;
 
   @override
-  _UpdateCitoyenState createState() => _UpdateCitoyenState();
+  _UpdateCitizenState createState() => _UpdateCitizenState();
 }
 
-class _UpdateCitoyenState extends State<UpdateCitoyen> {
+class _UpdateCitizenState extends State<UpdateCitizen> {
   final _formKey = GlobalKey<FormState>();
   static final List<String> items = <String>[
     'Sidi massoud',
@@ -64,7 +64,7 @@ class _UpdateCitoyenState extends State<UpdateCitoyen> {
   String? dropdownValue;
   // final TextEditingController _emailController = TextEditingController();
   // final TextEditingController _passwordController = TextEditingController();
-  // final TextEditingController _nomController = TextEditingController();
+  // final TextEditingController _nameController = TextEditingController();
 //! firebase!!!!!!!!
   bool checkedValue = false;
   bool checkboxValue = false;
@@ -99,7 +99,7 @@ class _UpdateCitoyenState extends State<UpdateCitoyen> {
             ),
             onPressed: () {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const GererUsers()));
+                  MaterialPageRoute(builder: (context) => const ManageUser()));
             },
           ),
           const Spacer(),
@@ -179,34 +179,34 @@ class _UpdateCitoyenState extends State<UpdateCitoyen> {
                           height: 20,
                         ),
                         const Text(
-                          'update Citoyens',
+                          'update Citizens',
                           style: TextStyle(
                               fontSize: 22, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        //!nom!!!!!!!
+                        //!name!!!!!!!
                         Container(
                           margin: EdgeInsets.only(left: w / 4, right: w / 4),
                           child: TextFormField(
-                            initialValue: widget.nom,
-                            onChanged: (newValue) => widget.newnom = newValue,
+                            initialValue: widget.name,
+                            onChanged: (newValue) => widget.newname = newValue,
                             decoration: ThemeHelper().textInputDecoration(
-                                "Nom et Prénom", "Entrez Nom"),
+                                "Last name and First name", "Enter Last name"),
                             keyboardType: TextInputType.name,
                             validator: (value) {
                               RegExp regex = new RegExp(r'^.{3,}$');
                               if (value!.isEmpty) {
-                                return ("veuillez entrer votre nom d'utilisateur");
+                                return ("veuillez entrer votre name d'utilisateur");
                               }
                               if (!regex.hasMatch(value)) {
-                                return ("Entrez un nom valide (Min. 3 caractères)");
+                                return ("Entrez un name valide (Min. 3 caractères)");
                               }
                               return null;
                             },
                             onSaved: (value) {
-                              widget.newnom = value!;
+                              widget.newname = value!;
                             },
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
@@ -221,7 +221,7 @@ class _UpdateCitoyenState extends State<UpdateCitoyen> {
                             initialValue: widget.email,
                             onChanged: (newValue) => widget.newemail = newValue,
                             decoration: ThemeHelper().textInputDecoration(
-                                "Adresse e-mail", "Entrez votre e-mail"),
+                                "E-mail address", "Enter your e-mail"),
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -254,14 +254,14 @@ class _UpdateCitoyenState extends State<UpdateCitoyen> {
 
                             //controller: _pass,
                             decoration: ThemeHelper().textInputDecoration(
-                                "Mot de passe", "Entrer votre mot de passe"),
+                                "Confirm your PasswordEnter your password"),
                             validator: (value) {
                               RegExp regex = new RegExp(r'^.{6,}$');
                               if (value!.isEmpty) {
-                                return ("Le mot de passe est requis pour la connexion");
+                                return ("Le password est requis pour la connexion");
                               }
                               if (!regex.hasMatch(value)) {
-                                return ("Entrez un mot de passe valide (min. 6 caractères)");
+                                return ("Entrez un password valide (min. 6 caractères)");
                               }
                             },
                             onSaved: (value) {
@@ -330,7 +330,7 @@ class _UpdateCitoyenState extends State<UpdateCitoyen> {
                               padding:
                                   const EdgeInsets.fromLTRB(40, 10, 40, 10),
                               child: Text(
-                                "Enregistrer".toUpperCase(),
+                                "Register".toUpperCase(),
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -341,20 +341,20 @@ class _UpdateCitoyenState extends State<UpdateCitoyen> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 FirebaseFirestore.instance
-                                    .collection("Citoyens")
+                                    .collection("Citizens")
                                     .doc(widget.id)
                                     .update({
                                   'email': widget.newemail ?? widget.email,
-                                  'mot de passe':
+                                  'password':
                                       widget.newpassword ?? widget.password,
-                                  'nom': widget.newnom ?? widget.nom,
+                                  'name': widget.newname ?? widget.name,
                                 });
 
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            ConsulterCitoyen()));
+                                            ConsultCitizen()));
                               }
                             },
                           ),

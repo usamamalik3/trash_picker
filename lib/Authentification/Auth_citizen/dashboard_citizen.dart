@@ -1,11 +1,10 @@
 // ignore_for_file: unused_import, file_names, deprecated_member_use, avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/Login_Citoyen.dart';
-import 'package:trash_picker/Authentification/Auth_citoyen/SignUp_Citoyen.dart';
+import 'package:trash_picker/Authentification/Auth_citizen/login_citizen.dart';
 import 'package:trash_picker/screens/SocialPage.dart';
 ////////////////
-import 'package:trash_picker/screens/Animation.dart';
+import 'package:trash_picker/screens/animation.dart';
 ////////////////
 import 'package:trash_picker/Theme/header_widget.dart';
 import 'package:trash_picker/Theme/theme_helper.dart';
@@ -15,16 +14,16 @@ import 'package:flutter/services.dart';
 
 import '../../screens/welcome_page.dart';
 
-class Profilechauffeur extends StatefulWidget {
-  const Profilechauffeur({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _ProfilechauffeurState();
+    return _ProfilePageState();
   }
 }
 
-class _ProfilechauffeurState extends State<Profilechauffeur> {
+class _ProfilePageState extends State<ProfilePage> {
   final double _drawerIconSize = 24;
   final double _drawerFontSize = 17;
 
@@ -57,6 +56,7 @@ class _ProfilechauffeurState extends State<Profilechauffeur> {
           ),
         ],
       ),
+      ////////////////////////////////////////////////
       //!ssssssssssssssssssssssss//////////////////////////////////////////////
       drawer: Drawer(
         child: Container(
@@ -173,7 +173,7 @@ class _ProfilechauffeurState extends State<Profilechauffeur> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginCitoyen()));
+                            builder: (context) => const LoginCitizen()));
                   });
                 },
               ),
@@ -194,7 +194,46 @@ class _ProfilechauffeurState extends State<Profilechauffeur> {
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Column(
                 children: [
-                  Container(),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(width: 5, color: Colors.white),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 20,
+                          offset: Offset(5, 5),
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      Icons.person,
+                      size: 80,
+                      color: Colors.grey.shade300,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Mr. Donald Trump',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Former President',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                  )
                 ],
               ),
             )

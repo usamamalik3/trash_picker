@@ -83,7 +83,7 @@ class _MyORSmapsCitoyenState extends State<MyORSmapsCitoyen> {
                     LatLng(doc.data()["Latitude"], doc.data()["Longitude"]),
                 infoWindow: InfoWindow(
                   title:
-                      " NomId : ${doc.data()["name"]} \n State : ${doc.data()["state"]}",
+                      " nameId : ${doc.data()["name"]} \n State : ${doc.data()["state"]}",
                   snippet: "percentage : ${doc.data()["percentage"]}",
                 ),
                 icon: BitmapDescriptor.fromBytes(markerIcon)),

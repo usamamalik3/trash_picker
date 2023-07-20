@@ -105,7 +105,7 @@ class _LoginAdminState extends State<LoginAdmin> {
                   child: Column(
                     children: [
                       Text(
-                        'Espace Admin',
+                        'Admin area',
                         style: GoogleFonts.alef(
                           textStyle: styles,
                           //  fontWeight: FontWeight.bold,
@@ -139,7 +139,7 @@ class _LoginAdminState extends State<LoginAdmin> {
                                           val != "sayedbenslimane@gmail.com" ||
                                           !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                               .hasMatch(val)) {
-                                        return "Entrer une adresse e-mail valide !";
+                                        return "Enter a valid email address !";
                                       }
                                       return null;
                                     },
@@ -160,11 +160,11 @@ class _LoginAdminState extends State<LoginAdmin> {
                                     autocorrect: false,
                                     //controller: _passwordController,
                                     decoration: ThemeHelper()
-                                        .textInputDecoration('Mot de passe',
-                                            'Entrer votre mot de passe'),
+                                        .textInputDecoration('password',
+                                            'Confirm your PasswordEnter your password'),
                                     validator: (val) {
                                       if (val!.isEmpty || val != "sayed12345") {
-                                        return "Entrer votre mot de passe";
+                                        return "Confirm your PasswordEnter your password";
                                       }
                                       return null;
                                     },
@@ -185,7 +185,7 @@ class _LoginAdminState extends State<LoginAdmin> {
 
                                     },
                                     child: const Text(
-                                      "Mot de passe oublié?",
+                                      "password oublié?",
                                       style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 133, 133, 133),
@@ -209,7 +209,7 @@ class _LoginAdminState extends State<LoginAdmin> {
                                           val != "sayedbenslimane@gmail.com" ||
                                           !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                               .hasMatch(val)) {
-                                        return "Entrer une adresse e-mail valide";
+                                        return "Enter a valid email address";
                                       }
                                       return null;
                                     },
@@ -226,11 +226,11 @@ class _LoginAdminState extends State<LoginAdmin> {
                                     enableSuggestions: false,
                                     autocorrect: false,
                                     decoration: ThemeHelper()
-                                        .textInputDecoration('Mot de passe',
-                                            'Entrer votre mot de passe'),
+                                        .textInputDecoration('password',
+                                            'Confirm your PasswordEnter your password'),
                                     validator: (val) {
                                       if (val!.isEmpty || val != "sayed12345") {
-                                        return "Entrer votre mot de passe";
+                                        return "Confirm your PasswordEnter your password";
                                       }
                                       return null;
                                     },
@@ -255,7 +255,7 @@ class _LoginAdminState extends State<LoginAdmin> {
                                       );
                                     },
                                     child: const Text(
-                                      "Mot de passe oublié?",
+                                      "password oublié?",
                                       style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 133, 133, 133),
@@ -287,7 +287,7 @@ class _LoginAdminState extends State<LoginAdmin> {
                                       debugPrint(
                                           'Toutes les validations sont passées !!');
                                       Fluttertoast.showToast(
-                                          msg: "Connexion réussie");
+                                          msg: "Successful connection");
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                               builder: (context) =>
