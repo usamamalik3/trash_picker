@@ -1,53 +1,147 @@
-// ignore_for_file: constant_identifier_names, avoid_print, prefer_const_constructors, empty_catches, use_key_in_widget_constructors, must_be_immutable, override_on_non_overriding_member, deprecated_member_use
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-//import 'package:firebase_core_web/firebase_core_web.dart';
 import 'package:flutter/material.dart';
-import 'package:trash_picker/screens/welcome_page.dart';
+import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
+import 'package:trash_picker/Pages/BottomNavBar/PickMyTrash/pick_trash_location.dart';
+import 'Pages/OnAppStart/welcome_page.dart';
+import './Theme/theme_provider.dart';
+import './Pages/BottomNavBar/bottom_nav_bar.dart';
+import 'Pages/OnAppStart/check_permissions.dart';
+import 'Pages/OnAppStart/sign_in_page.dart';
 
-import 'Authentification/Auth_Admin/ManageUsers/ConsultUser/consultTrashcan.dart';
-import 'Authentification/Auth_Admin/ManageUsers/ConsultUser/consultBreakdown.dart';
-import 'Authentification/Auth_Agent/dashboard_Agent.dart';
-import 'mpas/oRServisesMaps.dart';
-import 'mpas/OpenRouteServices.dart';
+bool allPermissions = false;
+final user = FirebaseAuth.instance.currentUser;
+String? accountType;
 
-const d_red = Color.fromARGB(239, 16, 191, 4);
+Future<void> geAccountType() async {
+  print("----------------------- CHECK ACCOUNT TYPE -----------------------");
+  await FirebaseFirestore.instance
+      .collection('Users')
+      .doc(user!.uid)
+      .get()
+      .then((value) {
+    accountType = value.data()!["accountType"];
+    print("----------------------- $accountType -----------------------");
+  });
+}
 
-void main() async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    print("widgets initialized");
-    await Firebase.initializeApp(
-      options: FirebaseOptions(
-          apiKey: "AIzaSyDkYfReC9iSBLx7HqTwrfLcKiBkN1mhc7E",
-          authDomain: "trashpicker-bb2d7.firebaseapp.com",
-          projectId: "trashpicker-bb2d7",
-          storageBucket: "trashpicker-bb2d7.appspot.com",
-          messagingSenderId: "834599004692",
-          appId: "1:834599004692:web:789f0e37fdfe064d28d501"),
-    );
-  } catch (e) {}
-  print("fire base initialized");
+_checkPermissionStatus() async {
+  print("----------------------- CHECK PERMISSION STATUS CALLED!");
+
+  var locationPermissionStatus = await Permission.location.status;
+  var cameraPermissionStatus = await Permission.camera.status;
+  var storagePermissionStatus = await Permission.storage.status;
+
+  if (locationPermissionStatus.isLimited &&
+      cameraPermissionStatus.isLimited &&
+      storagePermissionStatus.isLimited) {
+    print("ALL (LOCATION, CAMERA, STORAGE) PERMISSION DIDN'T ASK YET");
+  } else if (locationPermissionStatus.isGranted &&
+      cameraPermissionStatus.isGranted &&
+      storagePermissionStatus.isGranted) {
+    print("ALL (LOCATION, CAMERA, STORAGE) PERMISSION IS GRANTED!");
+    allPermissions = true;
+  } else if (locationPermissionStatus.isDenied) {
+    print("LOCATION PERMISSION DENIED!");
+  } else if (cameraPermissionStatus.isDenied) {
+    print("CAMERA PERMISSION DENIED!");
+  } else if (storagePermissionStatus.isDenied) {
+    print("STORAGE PERMISSION DENIED!");
+  } else if (locationPermissionStatus.isRestricted) {
+    print("LOCATION PERMISSION RESTRICTED!");
+  } else if (cameraPermissionStatus.isRestricted) {
+    print("CAMERA PERMISSION RESTRICTED!");
+  } else if (storagePermissionStatus.isRestricted) {
+    print("STORAGE PERMISSION RESTRICTED!");
+  } else if (!locationPermissionStatus.isGranted) {
+    print("LOCATION PERMISSION IS NOT GRANTED!");
+  } else if (!cameraPermissionStatus.isGranted) {
+    print("CAMERA PERMISSION IS NOT GRANTED!");
+  } else if (!storagePermissionStatus.isGranted) {
+    print("STORAGE PERMISSION IS NOT GRANTED!");
+  } else {
+    allPermissions = false;
+  }
+}
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  print("----------------------- MAIN METHOD RUN -----------------------");
+  await _checkPermissionStatus();
+  await Firebase.initializeApp();
+  if (user != null) {
+    await geAccountType();
+  }
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      //systemNavigationBarColor: Colors.blue,
+      statusBarColor: Colors.green.shade900,
+      //statusBarIconBrightness: Brightness.light
+    ),
+  );
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   @override
-  final Color _primaryColor = Color.fromARGB(255, 0, 42, 47); //#028900
-  Color kPrimaryColor = Color.fromARGB(239, 16, 191, 4);
-  Color kSecondaryColor = Color(0XFFFFC906);
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SmartGarbages',
-      theme: ThemeData(
-        primaryColor: kPrimaryColor,
-        scaffoldBackgroundColor: Colors.grey.shade100,
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)
-            .copyWith(secondary: _primaryColor),
-      ),
-      home: WelcomePage(),
-    );
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  static const String title = 'trash_picker';
+
+  _mainPage() {
+    print(
+        "------------------ All Permissions: $allPermissions ------------------");
+    print("----------------------- USER: $user ------------------");
+    if (allPermissions == true) {
+      if (user == null) {
+        print("----------------------- SWITCH: WelcomePage ------------------");
+        //return TestTheme(title: title);
+        //return BottomNavBar(title: title);
+        return WelcomePage();
+      } else {
+        print("----------------------- SWITCH: BottomBar ------------------");
+        return BottomNavBar(accountType!);
+        //return PickTrashLocation();
+      }
+    } else {
+      print(
+          "----------------------- SWITCH: CheckAppPermissions ------------------");
+      return CheckAppPermissions();
+    }
   }
+
+  @override
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+        create: (context) => ThemeProvider(),
+        builder: (context, _) {
+          final themeProvider = Provider.of<ThemeProvider>(context);
+
+          return MaterialApp(
+            title: title,
+            debugShowCheckedModeBanner: false,
+            themeMode: themeProvider.themeMode,
+            theme: AppThemeData.lightTheme,
+            darkTheme: AppThemeData.darkTheme,
+            home:
+                /*AnimatedSplashScreen(
+              splash: Image.asset(
+                'assets/images/trash_picker_logo_2.png',
+              ),
+              animationDuration: Duration(seconds: 2),
+              nextScreen: HomePage(title: title),
+              splashTransition: SplashTransition.fadeTransition,
+            ),*/
+                _mainPage(),
+          );
+        },
+      );
 }

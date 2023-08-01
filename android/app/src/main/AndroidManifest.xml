@@ -3,6 +3,9 @@
         android:label="trash_picker"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyD1snN3p9M0ZQMjhFs5NC46iNANU2RAlpM" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
