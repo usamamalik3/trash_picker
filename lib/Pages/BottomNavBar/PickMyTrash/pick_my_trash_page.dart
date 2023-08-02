@@ -140,7 +140,7 @@ class _PickMyTrashState extends State<PickMyTrash> {
                     )
                   : ListView.builder(
                       scrollDirection: Axis.vertical,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, int index) {
                         Trash_pickerUpsModel trash_pickerUpsModel =

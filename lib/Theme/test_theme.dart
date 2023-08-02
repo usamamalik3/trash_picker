@@ -9,6 +9,7 @@ class TestTheme extends StatefulWidget {
   final String? title;
 
   @override
+  // ignore: library_private_types_in_public_api
   _TestThemeState createState() => _TestThemeState();
 }
 
@@ -61,7 +62,7 @@ class _TestThemeState extends State<TestTheme> {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               Text(
-                ".titleLarge!",
+                "titleLarge",
                 style: Theme.of(context).textTheme.titleLarge!,
               ),
               Text(
