@@ -16,11 +16,11 @@ bool allPermissions = false;
 final user = FirebaseAuth.instance.currentUser;
 String? accountType;
 
-Future<void> geAccountType() async {
+Future<void> geAccountType(uid) async {
   print("----------------------- CHECK ACCOUNT TYPE -----------------------");
   await FirebaseFirestore.instance
       .collection('Users')
-      .doc(user!.uid)
+      .doc(uid)
       .get()
       .then((value) {
     accountType = value.data()!["accountType"];
@@ -73,7 +73,7 @@ Future<void> main() async {
   await _checkPermissionStatus();
   await Firebase.initializeApp();
   if (user != null) {
-    await geAccountType();
+    await geAccountType(user!.uid);
   }
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -90,6 +90,8 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
