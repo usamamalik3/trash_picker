@@ -26,7 +26,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 children: [
                   SizedBox(height: 40),
                   Image.asset(
-                    'assets/logos/trash_picker_logo_banner_2.png',
+                  "assets/logos/trashpick_logo_banner_2.png",
                     height: 250,
                     width: 250,
                   ),

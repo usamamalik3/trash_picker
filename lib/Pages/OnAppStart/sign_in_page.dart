@@ -270,7 +270,7 @@ class _SignInPageState extends State<SignInPage> {
                             })),
                     SizedBox(height: 20),
                     Image.asset(
-                      'assets/logos/trash_picker_logo_banner.png',
+                      "assets/logos/trashpick_logo_banner.png",
                       height: 200,
                       width: 200,
                     ),
@@ -311,7 +311,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    new ButtonWidget(
+                     ButtonWidget(
                       textColor: AppThemeData().whiteColor,
                       color: AppThemeData().secondaryColor,
                       text: "Sign In",
@@ -349,7 +349,7 @@ class _SignInPageState extends State<SignInPage> {
                                 fontWeight: FontWeight.bold,
                               )),
                           SizedBox(width: 10),
-                          new RadiusFlatButtonWidget(
+                           RadiusFlatButtonWidget(
                             text: "Sign Up",
                             onClicked: () {
                               Navigator.pushAndRemoveUntil(
