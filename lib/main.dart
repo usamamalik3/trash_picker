@@ -72,9 +72,7 @@ Future<void> main() async {
   print("----------------------- MAIN METHOD RUN -----------------------");
   await _checkPermissionStatus();
   await Firebase.initializeApp();
-  if (user != null) {
-    await geAccountType(user!.uid);
-  }
+  
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -86,7 +84,7 @@ Future<void> main() async {
       //statusBarIconBrightness: Brightness.light
     ),
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -109,7 +107,13 @@ class _MyAppState extends State<MyApp> {
         //return TestTheme(title: title);
         //return BottomNavBar(title: title);
         return WelcomePage();
-      } else {
+      }
+     
+       else  {
+        setState(() {
+          geAccountType(user!.uid);
+        });
+        
         print("----------------------- SWITCH: BottomBar ------------------");
         return BottomNavBar(accountType!);
         //return PickTrashLocation();
