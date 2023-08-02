@@ -35,7 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController confirmPasswordController = TextEditingController();
 
   String defaultUserAvatar =
-      "https://firebasestorage.googleapis.com/v0/b/trash_picker-db.appspot.com/o/Default%20User%20Avatar%2Ftrash_picker_user_avatar.png?alt=media&token=734f7e74-2c98-4c27-b982-3ecd072ced79";
+      "https://firebasestorage.googleapis.com/v0/b/trash_picker-db.appspot.com/o/Default%20User%20Avatar%2Ftrashpick_user_avatar.png?alt=media&token=734f7e74-2c98-4c27-b982-3ecd072ced79";
 
   bool _isHidden = true;
   bool _isHiddenC = true;
@@ -324,7 +324,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Text(
               'Trash Picker',
-              style: new TextStyle(fontSize: 17.0),
+              style:  TextStyle(fontSize: 17.0),
             ),
             Radio(
               value: 2,
@@ -338,7 +338,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             Text(
               'Trash Collector',
-              style: new TextStyle(
+              style:  TextStyle(
                 fontSize: 17.0,
               ),
             ),
@@ -386,7 +386,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'assets/logos/trash_picker_logo_banner.png',
+                            "assets/logos/trashpick_logo_banner.png",
                             height: 120,
                             width: 120,
                           ),
@@ -507,7 +507,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      new ButtonWidget(
+                       ButtonWidget(
                         textColor: AppThemeData().whiteColor,
                         color: AppThemeData().secondaryColor,
                         text: "Sign Up",
@@ -533,9 +533,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                   fontWeight: FontWeight.bold,
                                 )),
                             SizedBox(width: 10),
-                            new RadiusFlatButtonWidget(
-                              text: "Sign In",
-                              onClicked: () {
+                             TextButton(
+                              child: Text("Sign In"),
+                              onPressed: () {
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(

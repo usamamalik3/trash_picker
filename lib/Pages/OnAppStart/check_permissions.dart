@@ -206,7 +206,7 @@ class _CheckAppPermissionsState extends State<CheckAppPermissions> {
                 children: <Widget>[
                   SizedBox(height: 20),
                   Image.asset(
-                    'assets/logos/trash_picker_logo_banner.png',
+                    'assets/logos/trashpick_logo_banner.png',
                     height: 150,
                     width: 150,
                   ),

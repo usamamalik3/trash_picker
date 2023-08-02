@@ -111,7 +111,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                               SizedBox(
                                 height: 50.0,
                               ),
-                              new ButtonWidget(
+                               ButtonWidget(
                                   text: "Try Again",
                                   textColor: AppThemeData().whiteColor,
                                   color: AppThemeData().primaryColor,
@@ -212,7 +212,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                       }),
                    ListTile(
                     leading:  Icon(Icons.photo_camera),
-                    title: new Text('Camera'),
+                    title:  Text('Camera'),
                     onTap: () {
                       _imgFromCamera();
                       Navigator.of(context).pop();

@@ -5,7 +5,7 @@ import 'package:trash_picker/Widgets/change_theme_button_widget.dart';
 
 
 class TestTheme extends StatefulWidget {
-  TestTheme({Key? key, this.title}) : super(key: key);
+  const TestTheme({Key? key, this.title}) : super(key: key);
   final String? title;
 
   @override
@@ -76,21 +76,21 @@ class _TestThemeState extends State<TestTheme> {
                 height: 50.0,
               ),
               Image.asset(
-                'assets/logos/trash_picker_logo_curved.png',
+                'assets/logos/trashpick_logo_curved.png',
                 scale: 5.0,
               ),
               SizedBox(
                 height: 20.0,
               ),
               Image.asset(
-                'assets/logos/trash_picker_logo_round.png',
+                'assets/logos/trashpick_logo_round.png',
                 scale: 5.0,
               ),
               SizedBox(
                 height: 20.0,
               ),
               Image.asset(
-                'assets/logos/trash_picker_logo_square.png',
+                'assets/logos/trashpick_logo_square.png',
                 scale: 5.0,
               ),
               SizedBox(

@@ -149,7 +149,7 @@ class _RecyclingCentersListState extends State<RecyclingCentersList> {
                           ),
                           ClipOval(
                             child: Image.asset(
-                              'assets/images/trash_picker_user_avatar.png',
+                              'assets/images/trashpick_user_avatar.png',
                               height: 60.0,
                               width: 60.0,
                             ),

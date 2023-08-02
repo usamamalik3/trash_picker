@@ -140,7 +140,7 @@ class _MyAppState extends State<MyApp> {
             home:
                 /*AnimatedSplashScreen(
               splash: Image.asset(
-                'assets/images/trash_picker_logo_2.png',
+                'assets/images/trashpick_logo_2.png',
               ),
               animationDuration: Duration(seconds: 2),
               nextScreen: HomePage(title: title),

@@ -116,7 +116,7 @@ class _SignInPageState extends State<SignInPage> {
                         SizedBox(
                           height: 50.0,
                         ),
-                        new ButtonWidget(
+                         ButtonWidget(
                             text: "Continue",
                             textColor: AppThemeData().whiteColor,
                             color: AppThemeData().primaryColor,
@@ -349,9 +349,9 @@ class _SignInPageState extends State<SignInPage> {
                                 fontWeight: FontWeight.bold,
                               )),
                           SizedBox(width: 10),
-                           RadiusFlatButtonWidget(
-                            text: "Sign Up",
-                            onClicked: () {
+                           TextButton(
+                              child: Text("Sign up"),
+                              onPressed: () {
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(

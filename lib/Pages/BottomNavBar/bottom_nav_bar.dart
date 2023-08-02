@@ -55,13 +55,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       label: 'Recycling Centers',
     ),
-    BottomNavigationBarItem(
-      icon: Icon(
-        Icons.notifications_rounded,
-        size: 30.0,
-      ),
-      label: 'Be Aware',
-    ),
+    // BottomNavigationBarItem(
+    //   icon: Icon(
+    //     Icons.notifications_rounded,
+    //     size: 30.0,
+    //   ),
+    //   label: 'Be Aware',
+    // ),
     BottomNavigationBarItem(
       icon: Icon(
         Icons.settings_rounded,

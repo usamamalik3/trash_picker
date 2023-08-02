@@ -832,7 +832,7 @@ class _Newtrash_pickerUpState extends State<Newtrash_pickerUp> {
               ),
               Text(
                 'Current Location',
-                style: new TextStyle(
+                style:  TextStyle(
                     fontSize: Theme.of(context).textTheme.titleMedium!.fontSize),
               ),
               Radio(
@@ -848,7 +848,7 @@ class _Newtrash_pickerUpState extends State<Newtrash_pickerUp> {
               ),
               Text(
                 'Select from Map',
-                style: new TextStyle(
+                style:  TextStyle(
                   fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
                 ),
               ),
@@ -879,9 +879,9 @@ class _Newtrash_pickerUpState extends State<Newtrash_pickerUp> {
               borderRadius: BorderRadius.circular(10.0),
               child: Container(
                   color: Colors.grey.shade200,
-                  child: new GestureDetector(
+                  child:  GestureDetector(
                       onTap: onCardTap,
-                      child: new Container(
+                      child:  Container(
                         height: 50.0,
                         width: 150.0,
                         color: Colors.white,
@@ -930,9 +930,9 @@ class _Newtrash_pickerUpState extends State<Newtrash_pickerUp> {
               borderRadius: BorderRadius.circular(10.0),
               child: Container(
                   color: Colors.grey.shade200,
-                  child: new GestureDetector(
+                  child:  GestureDetector(
                       onTap: onCardTap,
-                      child: new Container(
+                      child:  Container(
                         height: 50.0,
                         width: 150.0,
                         color: Colors.white,

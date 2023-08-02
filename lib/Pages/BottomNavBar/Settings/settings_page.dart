@@ -28,7 +28,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection("Users")
-          .where('uuid', isEqualTo: "${auth.currentUser!.uid}")
+          .where('uuid', isEqualTo: auth.currentUser!.uid)
           .snapshots(),
       builder: (context, dataSnapshot) {
         if (!dataSnapshot.hasData) {
@@ -92,13 +92,13 @@ class _SettingsPageState extends State<SettingsPage> {
   aboutUsContainer() {
     return Column(
       children: [
-        Text(
-          hashTags,
-          style: TextStyle(
-              fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
-              fontWeight: FontWeight.bold,
-              color: AppThemeData().deepBlueColor),
-        ),
+        // Text(
+        //   hashTags,
+        //   style: TextStyle(
+        //       fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
+        //       fontWeight: FontWeight.bold,
+        //       color: AppThemeData().deepBlueColor),
+        // ),
         SizedBox(
           height: 10.0,
         ),
@@ -239,7 +239,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 SizedBox(
                   height: 15.0,
                 ),
-                aboutUsContainer(),
+                // aboutUsContainer(),
               ],
             ),
           ),
