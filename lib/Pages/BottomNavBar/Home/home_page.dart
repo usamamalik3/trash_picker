@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     } else if (widget.accountType == "Trash Collector") {
       badgeType = "Collector";
     }
+    
   }
 
   _statTitle(String title) {
@@ -96,7 +97,7 @@ class _HomePageState extends State<HomePage> {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection("Users")
-          .where('uuid', isEqualTo: "${auth.currentUser!.uid}")
+          .where('uuid', isEqualTo: auth.currentUser!.uid)
           .snapshots(),
       builder: (context, dataSnapshot) {
         if (!dataSnapshot.hasData) {

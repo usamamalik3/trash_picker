@@ -35,8 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController confirmPasswordController = TextEditingController();
 
   String defaultUserAvatar =
-      "https://firebasestorage.googleapis.com/v0/b/trash_picker-db.appspot.com/o/Default%20User%20Avatar%2Ftrashpick_user_avatar.png?alt=media&token=734f7e74-2c98-4c27-b982-3ecd072ced79";
-
+      "https://firebasestorage.googleapis.com/v0/b/trashpicker-bb2d7.appspot.com/o/images.png?alt=media&token=2d300f00-7ea5-4bac-ad63-b378b85bb59f";
   bool _isHidden = true;
   bool _isHiddenC = true;
 
@@ -182,7 +181,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         SizedBox(
                           height: 50.0,
                         ),
-                        new ButtonWidget(
+                         ButtonWidget(
                             text: "Continue",
                             textColor: AppThemeData().whiteColor,
                             color: AppThemeData().primaryColor,
@@ -261,10 +260,10 @@ class _SignUpPageState extends State<SignUpPage> {
             "contactNumber": phoneNumberController.text,
             "homeAddress": homeAddressController.text,
             'password': passwordController.text,
-            'appearedLocation': new GeoPoint(7.8731, 80.7718),
+            'appearedLocation':  const GeoPoint(7.8731, 80.7718),
             'lastAppeared': "Not Set",
             'accountCreated': "$formattedDate, $formattedTime",
-            'profileImage': "$defaultUserAvatar",
+            'profileImage': defaultUserAvatar,
           }).then((value) {
             print("User Added to Firestore success");
             Navigator.pop(context);
@@ -342,6 +341,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 fontSize: 17.0,
               ),
             ),
+             
           ],
         ),
       ],

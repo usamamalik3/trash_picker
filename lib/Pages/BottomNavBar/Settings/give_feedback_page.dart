@@ -111,7 +111,7 @@ class _GiveFeedbackPageState extends State<GiveFeedbackPage> {
                               SizedBox(
                                 height: 50.0,
                               ),
-                              new ButtonWidget(
+                               ButtonWidget(
                                   text: "Try Again",
                                   textColor: AppThemeData().whiteColor,
                                   color: AppThemeData().primaryColor,
@@ -141,7 +141,7 @@ class _GiveFeedbackPageState extends State<GiveFeedbackPage> {
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.bold)),
                             SizedBox(height: 50),
-                            new ButtonWidget(
+                             ButtonWidget(
                               textColor: AppThemeData().whiteColor,
                               color: AppThemeData().secondaryColor,
                               text: "OK",

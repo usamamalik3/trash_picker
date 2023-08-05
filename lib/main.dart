@@ -44,6 +44,7 @@ _checkPermissionStatus() async {
       storagePermissionStatus.isGranted) {
     print("ALL (LOCATION, CAMERA, STORAGE) PERMISSION IS GRANTED!");
     allPermissions = true;
+    
   } else if (locationPermissionStatus.isDenied) {
     print("LOCATION PERMISSION DENIED!");
   } else if (cameraPermissionStatus.isDenied) {
@@ -72,6 +73,10 @@ Future<void> main() async {
   print("----------------------- MAIN METHOD RUN -----------------------");
   await _checkPermissionStatus();
   await Firebase.initializeApp();
+if (user != null) {
+    await geAccountType(user!.uid);
+  }
+ 
   
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -110,10 +115,7 @@ class _MyAppState extends State<MyApp> {
       }
      
        else  {
-        setState(() {
-          geAccountType(user!.uid);
-        });
-        
+       
         print("----------------------- SWITCH: BottomBar ------------------");
         return BottomNavBar(accountType!);
         //return PickTrashLocation();
