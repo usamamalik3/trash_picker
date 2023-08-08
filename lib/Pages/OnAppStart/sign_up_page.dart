@@ -260,7 +260,7 @@ class _SignUpPageState extends State<SignUpPage> {
             "contactNumber": phoneNumberController.text,
             "homeAddress": homeAddressController.text,
             'password': passwordController.text,
-            'appearedLocation':  const GeoPoint(7.8731, 80.7718),
+            'appearedLocation':  const GeoPoint(31.4504, 73.1350),
             'lastAppeared': "Not Set",
             'accountCreated': "$formattedDate, $formattedTime",
             'profileImage': defaultUserAvatar,

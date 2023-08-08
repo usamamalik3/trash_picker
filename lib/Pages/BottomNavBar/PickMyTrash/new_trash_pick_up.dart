@@ -1036,13 +1036,13 @@ class _Newtrash_pickerUpState extends State<Newtrash_pickerUp> {
                     onTap: () {
                       _showPicker(context);
                     },
-                    child: Container(
+                    child:_image != null
+                          ?  Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       alignment: Alignment.center,
-                      child: _image != null
-                          ? Container(
+                      child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
@@ -1054,7 +1054,9 @@ class _Newtrash_pickerUpState extends State<Newtrash_pickerUp> {
                                 fit: BoxFit.cover,
                               ),
                             )
-                          : Container(
+                        
+                    )
+                      : Container(
                               decoration: BoxDecoration(
                                   color: Colors.grey[200],
                                   borderRadius: BorderRadius.circular(10)),
@@ -1083,7 +1085,6 @@ class _Newtrash_pickerUpState extends State<Newtrash_pickerUp> {
                                 ],
                               ),
                             ),
-                    ),
                   ),
                 ),
                 SizedBox(
